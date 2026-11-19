@@ -165,4 +165,84 @@ describe('App State & Workflow Transition Integrity', () => {
     expect(completedItem?.status).toBe('completed');
     expect(completedItem?.lpj?.file_name).toBe('LPJ_Workshop_Final.pdf');
   });
+
+  it('supports the revision lifecycle: Submit -> Revision Needed -> Resubmit -> Verified', () => {
+    const initialApps = [...INITIAL_APPLICATIONS];
+    saveStoredApplications(initialApps);
+
+    // 1. Submit proposal
+    const testApp: FundingApplication = {
+      id: 'APP-REV-01',
+      title: 'Lomba Robotika Nasional',
+      organization_name: 'Komunitas Robotika',
+      activity_category: 'Kompetisi & Lomba',
+      amount_requested: 10000000,
+      target_date: '2026-11-25',
+      description: 'Partisipasi kontes robot.',
+      applicant_id: MOCK_USERS.mahasiswa.id,
+      applicant_name: MOCK_USERS.mahasiswa.full_name,
+      status: 'submitted',
+      estimated_paper_sheets: 20,
+      documents: [],
+      verifications: [],
+      approvals: [],
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+
+    saveStoredApplications([testApp, ...initialApps]);
+
+    // 2. Verifikator asks for revision
+    const verRev = {
+      id: 'ver-rev',
+      application_id: 'APP-REV-01',
+      verifier_id: MOCK_USERS.verifikator.id,
+      verifier_name: MOCK_USERS.verifikator.full_name,
+      action: 'revision_needed' as const,
+      notes: 'Mohon rincikan anggaran akomodasi dan lampirkan surat izin Dekanat.',
+      created_at: new Date().toISOString(),
+    };
+
+    const appsWithRev = getStoredApplications().map((a) =>
+      a.id === 'APP-REV-01'
+        ? { ...a, status: 'revision_needed' as const, verifications: [verRev] }
+        : a
+    );
+    saveStoredApplications(appsWithRev);
+
+    let currentApp = getStoredApplications().find((a) => a.id === 'APP-REV-01');
+    expect(currentApp?.status).toBe('revision_needed');
+    expect(currentApp?.verifications[0].notes).toContain('akomodasi');
+
+    // 3. Mahasiswa edits and resubmits
+    const studentNote = 'RAB akomodasi telah dirinci dan surat izin Dekanat telah dilampirkan.';
+    const resubmittedApps = getStoredApplications().map((a) =>
+      a.id === 'APP-REV-01'
+        ? {
+            ...a,
+            status: 'submitted' as const,
+            amount_requested: 9500000, // adjusted
+            verifications: [
+              ...a.verifications,
+              {
+                id: 'rev-sub-01',
+                application_id: 'APP-REV-01',
+                verifier_id: MOCK_USERS.mahasiswa.id,
+                verifier_name: `[Revisi Mahasiswa] ${MOCK_USERS.mahasiswa.full_name}`,
+                action: 'approved' as const,
+                notes: studentNote,
+                created_at: new Date().toISOString(),
+              },
+            ],
+          }
+        : a
+    );
+    saveStoredApplications(resubmittedApps);
+
+    currentApp = getStoredApplications().find((a) => a.id === 'APP-REV-01');
+    expect(currentApp?.status).toBe('submitted');
+    expect(currentApp?.amount_requested).toBe(9500000);
+    expect(currentApp?.verifications.length).toBe(2);
+    expect(currentApp?.verifications[1].verifier_name).toContain('[Revisi Mahasiswa]');
+  });
 });

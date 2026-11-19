@@ -8,7 +8,9 @@ import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
+import { FileUpload } from '@/components/ui/FileUpload';
 import { useAppState } from '@/lib/app-state';
+import { DocumentItem } from '@/lib/types';
 import { EMISSION_FACTORS } from '@/lib/emission-data';
 
 export default function DetailPengajuanPage() {
@@ -21,6 +23,7 @@ export default function DetailPengajuanPage() {
     verifyApplication,
     approveApplication,
     submitLPJ,
+    resubmitRevision,
   } = useAppState();
 
   const app = applications.find((a) => a.id === id);
@@ -37,6 +40,18 @@ export default function DetailPengajuanPage() {
   const [lpjModalOpen, setLpjModalOpen] = useState(false);
   const [lpjFileName, setLpjFileName] = useState('Laporan_Pertanggungjawaban_Final.pdf');
   const [lpjNotes, setLpjNotes] = useState('');
+
+  // Modal: Revision State for Mahasiswa
+  const [revisionModalOpen, setRevisionModalOpen] = useState(false);
+  const [revTitle, setRevTitle] = useState('');
+  const [revCategory, setRevCategory] = useState('Kompetisi & Lomba');
+  const [revAmount, setRevAmount] = useState(0);
+  const [revDate, setRevDate] = useState('');
+  const [revDescription, setRevDescription] = useState('');
+  const [revSheets, setRevSheets] = useState(20);
+  const [revNotes, setRevNotes] = useState('');
+  const [revFile, setRevFile] = useState<File | null>(null);
+  const [revSuccessToast, setRevSuccessToast] = useState(false);
 
   if (!app) {
     return (
@@ -74,6 +89,55 @@ export default function DetailPengajuanPage() {
     setLpjModalOpen(false);
     setLpjNotes('');
   };
+
+  const handleOpenRevisionModal = () => {
+    setRevTitle(app.title);
+    setRevCategory(app.activity_category);
+    setRevAmount(app.amount_requested);
+    setRevDate(app.target_date);
+    setRevDescription(app.description);
+    setRevSheets(app.estimated_paper_sheets || 20);
+    setRevNotes('');
+    setRevFile(null);
+    setRevisionModalOpen(true);
+  };
+
+  const handleConfirmRevision = () => {
+    const newDocs: DocumentItem[] = revFile
+      ? [
+          ...(app.documents || []),
+          {
+            id: `doc-rev-${Date.now()}`,
+            application_id: app.id,
+            file_name: revFile.name,
+            file_size: revFile.size,
+            file_type: revFile.type || 'application/pdf',
+            document_type: 'revisi' as const,
+            uploaded_by: currentUser.full_name,
+            uploaded_at: new Date().toISOString(),
+          },
+        ]
+      : app.documents;
+
+    resubmitRevision(
+      app.id,
+      {
+        title: revTitle,
+        activity_category: revCategory as any,
+        amount_requested: Number(revAmount),
+        target_date: revDate,
+        description: revDescription,
+        estimated_paper_sheets: Number(revSheets),
+        documents: newDocs,
+      },
+      revNotes || 'Berkas perbaikan telah disesuaikan dan diajukan kembali untuk verifikasi.'
+    );
+    setRevisionModalOpen(false);
+    setRevSuccessToast(true);
+    setTimeout(() => setRevSuccessToast(false), 6000);
+  };
+
+  const latestVerification = app.verifications?.[app.verifications.length - 1];
 
   // Timeline step definitions
   const steps = [
@@ -120,6 +184,56 @@ export default function DetailPengajuanPage() {
           </div>
         </div>
 
+        {/* Success Toast after Resubmission */}
+        {revSuccessToast && (
+          <div className="p-3.5 rounded-lg border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 text-xs flex items-center justify-between shadow-xs">
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-sm">✓</span>
+              <span><strong>Berhasil Diajukan Ulang:</strong> Revisi usulan telah dikirim kembali ke antrean Verifikator Administrasi untuk pemeriksaan ulang.</span>
+            </div>
+            <button onClick={() => setRevSuccessToast(false)} className="text-emerald-600 hover:text-emerald-900 dark:hover:text-emerald-100 font-bold ml-2">✕</button>
+          </div>
+        )}
+
+        {/* Prominent Revision Alert Banner when Status is revision_needed */}
+        {app.status === 'revision_needed' && (
+          <div className="p-4 sm:p-5 rounded-xl border border-amber-300 dark:border-amber-700/80 bg-amber-50/80 dark:bg-amber-950/30 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse shrink-0" />
+                <h3 className="font-semibold text-amber-900 dark:text-amber-200 text-sm">
+                  Status: Memerlukan Revisi Berkas (Bukan Ditolak)
+                </h3>
+              </div>
+              {currentUser.role === 'mahasiswa' && (
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={handleOpenRevisionModal}
+                  className="bg-amber-600 hover:bg-amber-700 text-white border-amber-700 font-semibold shrink-0"
+                >
+                  ✏️ Edit & Ajukan Ulang Usulan
+                </Button>
+              )}
+            </div>
+
+            <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
+              Verifikator telah memeriksa proposal Anda dan meminta perbaikan berkas. Anda <strong>tidak perlu membuat usulan baru</strong> dari nol. Silakan klik tombol <strong>&quot;Edit & Ajukan Ulang Usulan&quot;</strong> untuk memperbaiki rincian usulan atau mengunggah berkas revisi, lalu kirim kembali ke verifikator.
+            </p>
+
+            {latestVerification?.notes && (
+              <div className="p-3 rounded-lg bg-white dark:bg-zinc-900 border border-amber-200 dark:border-amber-800 text-xs">
+                <span className="font-semibold text-amber-800 dark:text-amber-400">
+                  Catatan dari Verifikator ({latestVerification.verifier_name}):
+                </span>
+                <p className="text-zinc-800 dark:text-zinc-200 mt-1 italic leading-relaxed">
+                  &ldquo;{latestVerification.notes}&rdquo;
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Main Header Card */}
         <Card className="p-6">
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
@@ -152,6 +266,17 @@ export default function DetailPengajuanPage() {
 
               {/* Action buttons based on Role and Status */}
               <div className="mt-4 flex flex-wrap gap-2">
+                {currentUser.role === 'mahasiswa' && app.status === 'revision_needed' && (
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={handleOpenRevisionModal}
+                    className="bg-amber-600 hover:bg-amber-700 text-white border-amber-700 font-semibold"
+                  >
+                    ✏️ Perbaiki & Ajukan Ulang →
+                  </Button>
+                )}
+
                 {currentUser.role === 'verifikator' && app.status === 'submitted' && (
                   <Button
                     variant="primary"
@@ -543,6 +668,141 @@ export default function DetailPengajuanPage() {
               </Button>
               <Button variant="primary" size="sm" onClick={handleConfirmLPJ}>
                 Simpan & Selesaikan LPJ
+              </Button>
+            </div>
+          </div>
+        </Modal>
+
+        {/* Modal: Student Revision & Resubmission */}
+        <Modal
+          isOpen={revisionModalOpen}
+          onClose={() => setRevisionModalOpen(false)}
+          title="Perbaiki & Ajukan Ulang Usulan (Revisi)"
+        >
+          <div className="space-y-4 text-xs max-h-[75vh] overflow-y-auto pr-1">
+            {latestVerification?.notes && (
+              <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-900 dark:text-amber-200">
+                <div className="font-semibold text-[11px] uppercase tracking-wider mb-0.5">
+                  Catatan Verifikator yang Harus Diperbaiki:
+                </div>
+                <p className="italic text-xs">&ldquo;{latestVerification.notes}&rdquo;</p>
+              </div>
+            )}
+
+            <div>
+              <label className="block font-semibold mb-1">Judul Usulan Kegiatan:</label>
+              <input
+                type="text"
+                required
+                value={revTitle}
+                onChange={(e) => setRevTitle(e.target.value)}
+                className="w-full text-xs p-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 font-medium"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block font-semibold mb-1">Kategori Kegiatan:</label>
+                <select
+                  value={revCategory}
+                  onChange={(e) => setRevCategory(e.target.value)}
+                  className="w-full text-xs p-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800"
+                >
+                  <option value="Kompetisi & Lomba">Kompetisi & Lomba</option>
+                  <option value="Seminar & Workshop">Seminar & Workshop</option>
+                  <option value="Program Kerja Ormawa">Program Kerja Ormawa</option>
+                  <option value="Pengabdian Masyarakat">Pengabdian Masyarakat</option>
+                  <option value="Karya Inovasi & Riset">Karya Inovasi & Riset</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block font-semibold mb-1">Target Tanggal Kegiatan:</label>
+                <input
+                  type="date"
+                  required
+                  value={revDate}
+                  onChange={(e) => setRevDate(e.target.value)}
+                  className="w-full text-xs p-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block font-semibold mb-1">Nominal Usulan Dana (Rp):</label>
+                <input
+                  type="number"
+                  min={100000}
+                  step={50000}
+                  required
+                  value={revAmount}
+                  onChange={(e) => setRevAmount(Math.max(0, parseInt(e.target.value) || 0))}
+                  className="w-full text-xs p-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 font-mono font-bold"
+                />
+              </div>
+
+              <div>
+                <label className="block font-semibold mb-1">Estimasi Lembar Kertas Pengajuan:</label>
+                <input
+                  type="number"
+                  min={5}
+                  max={200}
+                  value={revSheets}
+                  onChange={(e) => setRevSheets(Math.max(5, parseInt(e.target.value) || 20))}
+                  className="w-full text-xs p-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block font-semibold mb-1">Deskripsi & Rincian Rencana Kegiatan:</label>
+              <textarea
+                rows={3}
+                required
+                value={revDescription}
+                onChange={(e) => setRevDescription(e.target.value)}
+                className="w-full text-xs p-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800"
+              />
+            </div>
+
+            <div>
+              <label className="block font-semibold mb-1">Unggah Dokumen Proposal / RAB Revisi:</label>
+              <FileUpload
+                onFileSelect={setRevFile}
+                accept=".pdf,.docx,.xlsx"
+                maxSizeMB={5}
+                label=""
+                hint="Format: PDF/DOCX (Maks 5 MB). Lampirkan berkas yang sudah disesuaikan dengan instruksi verifikator."
+              />
+              {revFile && (
+                <div className="mt-1.5 p-2 rounded bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-[11px] text-emerald-800 dark:text-emerald-300 flex items-center justify-between">
+                  <span>Berkas dipilih: <strong>{revFile.name}</strong> ({(revFile.size / 1024).toFixed(1)} KB)</span>
+                  <span className="font-bold text-emerald-600">Siap Dilampirkan</span>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <label className="block font-semibold mb-1 text-amber-800 dark:text-amber-400">
+                Catatan Penjelasan Revisi untuk Verifikator:
+              </label>
+              <textarea
+                rows={2}
+                required
+                value={revNotes}
+                onChange={(e) => setRevNotes(e.target.value)}
+                placeholder="Contoh: Rincian anggaran (RAB) konsumsi dan banner telah disesuaikan dan lembar pengesahan ketua telah dilampirkan..."
+                className="w-full text-xs p-2.5 rounded-lg border border-amber-300 dark:border-amber-700 bg-white dark:bg-zinc-800 focus:outline-none"
+              />
+            </div>
+
+            <div className="flex justify-end gap-2 pt-2 border-t border-zinc-100 dark:border-zinc-800">
+              <Button variant="outline" size="sm" onClick={() => setRevisionModalOpen(false)}>
+                Batal
+              </Button>
+              <Button variant="primary" size="sm" onClick={handleConfirmRevision}>
+                Kirim Revisi ke Verifikator →
               </Button>
             </div>
           </div>

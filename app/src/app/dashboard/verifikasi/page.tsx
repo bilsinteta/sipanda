@@ -67,8 +67,15 @@ export default function VerifikasiPage() {
                         <div className="font-medium text-zinc-900 dark:text-zinc-100 truncate">
                           {app.title}
                         </div>
-                        <div className="text-[11px] text-zinc-400 truncate">
-                          {app.organization_name} · Pengusul: {app.applicant_name}
+                        <div className="text-[11px] text-zinc-400 truncate flex items-center gap-1.5 mt-0.5">
+                          <span>{app.organization_name}</span>
+                          <span>·</span>
+                          <span>Pengusul: {app.applicant_name}</span>
+                          {app.verifications?.some((v) => v.verifier_name?.includes('[Revisi Mahasiswa]')) && (
+                            <span className="font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-1.5 py-0.2 rounded border border-emerald-200 dark:border-emerald-800 text-[10px]">
+                              Telah Direvisi
+                            </span>
+                          )}
                         </div>
                       </td>
                       <td className="py-3 px-3 font-mono font-medium text-zinc-900 dark:text-zinc-100 whitespace-nowrap">

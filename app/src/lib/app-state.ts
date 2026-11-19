@@ -151,6 +151,30 @@ export function useAppState() {
     });
   };
 
+  const resubmitRevision = (
+    id: string,
+    updates: Partial<FundingApplication>,
+    studentNote: string
+  ) => {
+    const app = applications.find((a) => a.id === id);
+    if (!app) return;
+    const now = new Date().toISOString();
+    const revisionLog = {
+      id: `rev-${Date.now()}`,
+      application_id: id,
+      verifier_id: currentUser.id,
+      verifier_name: `[Revisi Mahasiswa] ${currentUser.full_name}`,
+      action: 'approved' as const,
+      notes: studentNote || 'Berkas perbaikan telah diperbarui dan diajukan ulang ke verifikator.',
+      created_at: now,
+    };
+    updateApplication(id, {
+      ...updates,
+      status: 'submitted',
+      verifications: [...(app.verifications || []), revisionLog],
+    });
+  };
+
   return {
     currentUser,
     switchRole,
@@ -161,6 +185,7 @@ export function useAppState() {
     verifyApplication,
     approveApplication,
     submitLPJ,
+    resubmitRevision,
   };
 }
 
