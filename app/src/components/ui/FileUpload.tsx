@@ -15,7 +15,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   accept = '.pdf,.docx,.xlsx',
   maxSizeMB = 5,
   label = 'Unggah Dokumen',
-  hint = 'Format: PDF, DOCX, XLSX (Maks. 5 MB). Dioptimasi untuk transfer data ramah lingkungan.',
+  hint = 'Format: PDF, DOCX, XLSX (Maksimal 5 MB). Dioptimasi untuk transfer data hemat energi.',
 }) => {
   const [dragActive, setDragActive] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
@@ -27,7 +27,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     setError(null);
     const sizeInMB = file.size / (1024 * 1024);
     if (sizeInMB > maxSizeMB) {
-      setError(`Ukuran berkas melebihi ${maxSizeMB} MB (${sizeInMB.toFixed(1)} MB). Harap kompresi dokumen untuk hemat energi.`);
+      setError(`Ukuran berkas (${sizeInMB.toFixed(1)} MB) melebihi batas ${maxSizeMB} MB.`);
       return;
     }
     setSelectedFileName(file.name);
@@ -53,7 +53,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+        <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1.5">
           {label}
         </label>
       )}
@@ -74,10 +74,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         }}
         onDrop={handleDrop}
         onClick={() => inputRef.current?.click()}
-        className={`border-2 border-dashed rounded-xl p-5 text-center cursor-pointer transition-colors ${
+        className={`border border-dashed rounded-lg p-5 text-center cursor-pointer transition-colors ${
           dragActive
-            ? 'border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/20'
-            : 'border-slate-300 dark:border-slate-700 hover:border-emerald-500 dark:hover:border-emerald-500 bg-slate-50/50 dark:bg-slate-900/40'
+            ? 'border-zinc-900 dark:border-zinc-100 bg-zinc-100/50 dark:bg-zinc-800/40'
+            : 'border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-500 bg-zinc-50/50 dark:bg-zinc-900/40'
         }`}
       >
         <input
@@ -89,7 +89,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         />
         <div className="flex flex-col items-center justify-center">
           <svg
-            className="w-8 h-8 text-emerald-600 dark:text-emerald-400 mb-2"
+            className="w-6 h-6 text-zinc-400 mb-2"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -102,22 +102,22 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             />
           </svg>
           {selectedFileName ? (
-            <div className="text-sm">
-              <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+            <div className="text-xs">
+              <span className="font-medium text-zinc-900 dark:text-zinc-100">
                 {selectedFileName}
               </span>{' '}
-              <span className="text-slate-500 text-xs">
+              <span className="text-zinc-400">
                 ({((selectedFileSize || 0) / 1024).toFixed(0)} KB)
               </span>
-              <p className="text-xs text-slate-400 mt-1">Klik untuk mengganti berkas</p>
+              <p className="text-[11px] text-zinc-400 mt-1">Klik untuk mengganti berkas</p>
             </div>
           ) : (
             <>
-              <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                Tarik & letakkan berkas proposal di sini, atau{' '}
-                <span className="text-emerald-600 dark:text-emerald-400 underline">pilih berkas</span>
+              <p className="text-xs text-zinc-700 dark:text-zinc-300">
+                Tarik berkas ke sini, atau{' '}
+                <span className="text-zinc-900 dark:text-zinc-100 font-medium underline underline-offset-2">pilih dari perangkat</span>
               </p>
-              {hint && <p className="text-xs text-slate-400 mt-1">{hint}</p>}
+              {hint && <p className="text-[11px] text-zinc-400 mt-1">{hint}</p>}
             </>
           )}
         </div>
@@ -126,4 +126,3 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     </div>
   );
 };
-

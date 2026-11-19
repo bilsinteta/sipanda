@@ -125,27 +125,27 @@ export default function DetailPengajuanPage() {
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 mb-1.5">
-                <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300">
+                <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-700">
                   {app.id}
                 </span>
-                <span className="text-xs text-slate-500">•</span>
-                <span className="text-xs text-slate-500 font-medium">
+                <span className="text-xs text-zinc-400">·</span>
+                <span className="text-xs text-zinc-500 font-medium">
                   {app.activity_category}
                 </span>
               </div>
-              <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white leading-tight">
+              <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 leading-tight">
                 {app.title}
               </h1>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                Diajukan oleh <strong>{app.applicant_name}</strong> ({app.applicant_nim || '-'}) •{' '}
-                <strong>{app.organization_name}</strong> • Tanggal Pelaksanaan: {app.target_date}
+              <p className="text-xs text-zinc-500 mt-2">
+                Diajukan oleh <strong className="text-zinc-800 dark:text-zinc-200">{app.applicant_name}</strong> ({app.applicant_nim || '-'}) ·{' '}
+                <strong className="text-zinc-800 dark:text-zinc-200">{app.organization_name}</strong> · Tanggal: {app.target_date}
               </p>
             </div>
 
             <div className="text-right flex flex-col md:items-end justify-between">
               <div>
-                <div className="text-xs text-slate-400">Nominal Usulan Dana</div>
-                <div className="text-2xl font-extrabold text-emerald-700 dark:text-emerald-400">
+                <div className="text-xs text-zinc-400">Nominal Usulan Dana</div>
+                <div className="text-2xl font-bold font-mono text-zinc-900 dark:text-zinc-100">
                   Rp {Number(app.amount_requested).toLocaleString('id-ID')}
                 </div>
               </div>
@@ -161,7 +161,7 @@ export default function DetailPengajuanPage() {
                       setVerifyModalOpen(true);
                     }}
                   >
-                    🔍 Verifikasi Administrasi
+                    Verifikasi Administrasi →
                   </Button>
                 )}
 
@@ -174,7 +174,7 @@ export default function DetailPengajuanPage() {
                       setApproveModalOpen(true);
                     }}
                   >
-                    ⚖️ Putuskan Persetujuan Dana
+                    Putuskan Persetujuan →
                   </Button>
                 )}
 
@@ -184,7 +184,7 @@ export default function DetailPengajuanPage() {
                     size="sm"
                     onClick={() => setLpjModalOpen(true)}
                   >
-                    📤 Unggah Berkas LPJ
+                    Unggah Berkas LPJ →
                   </Button>
                 )}
               </div>
@@ -193,37 +193,37 @@ export default function DetailPengajuanPage() {
         </Card>
 
         {/* Workflow Progress Timeline */}
-        <Card title="Alur Perjalanan Pengajuan & Administrasi">
-          <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs pt-2">
-            {steps.map((st, i) => (
+        <Card title="Alur Pengajuan & Tahapan Administrasi">
+          <div className="grid grid-cols-1 sm:grid-cols-4 gap-2.5 text-xs pt-1">
+            {steps.map((st) => (
               <div
                 key={st.key}
-                className={`p-3 rounded-xl border transition-all ${
+                className={`p-3 rounded-lg border transition-all ${
                   st.done
-                    ? 'border-emerald-300 dark:border-emerald-800 bg-emerald-50/50 dark:bg-emerald-950/20'
+                    ? 'border-emerald-200 dark:border-emerald-900 bg-emerald-50/40 dark:bg-emerald-950/20'
                     : st.active
-                    ? 'border-blue-300 dark:border-blue-800 bg-blue-50/50 dark:bg-blue-950/20 ring-2 ring-blue-500/20'
+                    ? 'border-zinc-900 dark:border-zinc-100 bg-zinc-50 dark:bg-zinc-800/40'
                     : st.error
-                    ? 'border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/20'
-                    : 'border-slate-200 dark:border-slate-800 opacity-60'
+                    ? 'border-rose-200 dark:border-rose-900/60 bg-rose-50/40 dark:bg-rose-950/20'
+                    : 'border-zinc-200 dark:border-zinc-800 opacity-60'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
-                  <span className="font-semibold text-slate-700 dark:text-slate-300">
+                  <span className="font-medium text-zinc-900 dark:text-zinc-100">
                     {st.label}
                   </span>
-                  <span>
-                    {st.done ? '✅' : st.active ? '⏳' : st.error ? '⚠️' : '⚪'}
-                  </span>
+                  <span className="w-2 h-2 rounded-full inline-block shrink-0" style={{
+                    backgroundColor: st.done ? '#10b981' : st.active ? '#3b82f6' : st.error ? '#f43f5e' : '#a1a1aa'
+                  }} />
                 </div>
-                <div className="text-[11px] text-slate-500">
+                <div className="text-[11px] text-zinc-400">
                   {st.done
                     ? 'Selesai'
                     : st.active
-                    ? 'Sedang berlangsung'
+                    ? 'Tahap berjalan'
                     : st.error
-                    ? 'Menunggu perbaikan'
-                    : 'Tahap selanjutnya'}
+                    ? 'Perlu revisi'
+                    : 'Menunggu'}
                 </div>
               </div>
             ))}

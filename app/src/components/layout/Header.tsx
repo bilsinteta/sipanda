@@ -22,7 +22,6 @@ export const Header: React.FC<HeaderProps> = ({
   const [roleMenuOpen, setRoleMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Check initial dark mode preference
     const isDark =
       localStorage.getItem('theme') === 'dark' ||
       (!('theme' in localStorage) &&
@@ -52,86 +51,83 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   const roleLabels: Record<UserRole, { label: string; badge: string }> = {
-    mahasiswa: { label: 'Mahasiswa / Ormawa', badge: 'bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300' },
-    verifikator: { label: 'Verifikator Administrasi', badge: 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' },
-    approver: { label: 'Pemberi Persetujuan (Wadek III)', badge: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300' },
-    admin: { label: 'Administrator Sistem', badge: 'bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300' },
+    mahasiswa: { label: 'Mahasiswa / Ormawa', badge: 'bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200' },
+    verifikator: { label: 'Verifikator Administrasi', badge: 'bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300' },
+    approver: { label: 'Pemberi Persetujuan (Wadek III)', badge: 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300' },
+    admin: { label: 'Administrator Sistem', badge: 'bg-purple-50 dark:bg-purple-950/40 text-purple-800 dark:text-purple-300' },
   };
 
   return (
-    <header className="h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30 flex items-center justify-between px-4 lg:px-6">
-      {/* Left: Mobile hamburger & breadcrumb/title */}
+    <header className="h-14 bg-white dark:bg-zinc-950 border-b border-zinc-200/80 dark:border-zinc-800/80 sticky top-0 z-30 flex items-center justify-between px-4 lg:px-6">
+      {/* Left: Mobile hamburger & breadcrumb */}
       <div className="flex items-center gap-3">
         <button
           onClick={onToggleSidebar}
-          className="lg:hidden p-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
-          aria-label="Toggle menu"
+          className="lg:hidden p-1.5 rounded-md text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+          aria-label="Buka menu"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
 
-        <div className="hidden sm:flex items-center gap-2">
+        <div className="hidden sm:flex items-center gap-2 text-xs">
           <Link
             href="/dashboard"
-            className="text-xs font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
+            className="text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors"
           >
             FILKOM UB
           </Link>
-          <span className="text-slate-300 dark:text-slate-700">/</span>
-          <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-            Sistem Informasi Pengajuan Dana
+          <span className="text-zinc-300 dark:text-zinc-700">/</span>
+          <span className="font-medium text-zinc-800 dark:text-zinc-200">
+            SIPANDA
           </span>
         </div>
       </div>
 
-      {/* Middle: Carbon Badge */}
+      {/* Middle: Carbon badge */}
       <div className="hidden md:block">
         <CarbonBadge gramsCO2={0.08} cleanerThanPercent={91} />
       </div>
 
-      {/* Right: Role Switcher, Dark mode, User Profile */}
-      <div className="flex items-center gap-2 sm:gap-3">
-        {/* Quick Role Switcher for seamless demo/testing */}
+      {/* Right: Controls */}
+      <div className="flex items-center gap-2">
+        {/* Role Selector */}
         <div className="relative">
           <button
             onClick={() => setRoleMenuOpen(!roleMenuOpen)}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 transition-colors"
-            title="Ganti Peran Pengguna untuk Pengujian Demo"
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-xs font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
           >
-            <span className="hidden sm:inline text-slate-400">Peran:</span>
-            <span className={`px-1.5 py-0.5 rounded text-[11px] font-semibold ${roleLabels[currentUser.role].badge}`}>
+            <span className="text-zinc-400 text-[11px]">Peran:</span>
+            <span className="font-medium text-zinc-800 dark:text-zinc-200 capitalize">
               {currentUser.role}
             </span>
-            <svg className="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-3 h-3 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
 
           {roleMenuOpen && (
             <div
-              className="absolute right-0 mt-2 w-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-lg p-2 z-50 text-xs"
+              className="absolute right-0 mt-1.5 w-60 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-lg p-1.5 z-50 text-xs"
               onClick={() => setRoleMenuOpen(false)}
             >
-              <div className="px-2 py-1.5 font-semibold text-slate-400 text-[11px] uppercase tracking-wider">
-                Simulasi Peran Aktor
+              <div className="px-2 py-1 text-[10px] font-semibold text-zinc-400 uppercase tracking-wider">
+                Ganti Peran Aktor
               </div>
               {(['mahasiswa', 'verifikator', 'approver', 'admin'] as UserRole[]).map((r) => (
                 <button
                   key={r}
                   onClick={() => onSwitchRole(r)}
-                  className={`w-full text-left px-2.5 py-2 rounded-lg flex items-center justify-between transition-colors ${
+                  className={`w-full text-left px-2 py-1.5 rounded-md flex items-center justify-between transition-colors ${
                     currentUser.role === r
-                      ? 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-semibold'
-                      : 'hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
+                      ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-semibold'
+                      : 'hover:bg-zinc-50 dark:hover:bg-zinc-800/60 text-zinc-600 dark:text-zinc-300'
                   }`}
                 >
                   <span>{roleLabels[r].label}</span>
                   {currentUser.role === r && (
-                    <svg className="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                   )}
                 </button>
               ))}
@@ -139,43 +135,38 @@ export const Header: React.FC<HeaderProps> = ({
           )}
         </div>
 
-        {/* Dark Mode Toggle */}
+        {/* Dark Mode */}
         <button
           onClick={toggleDarkMode}
-          className="p-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-          title={isDarkMode ? 'Beralih ke Mode Terang' : 'Beralih ke Mode Gelap (Hemat Energi OLED)'}
-          aria-label="Toggle dark mode"
+          className="p-1.5 rounded-md text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+          title={isDarkMode ? 'Mode Terang' : 'Mode Gelap (OLED Eco)'}
+          aria-label="Toggle theme"
         >
           {isDarkMode ? (
-            <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            <svg className="w-4 h-4 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>
           ) : (
-            <svg className="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            <svg className="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.75" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
             </svg>
           )}
         </button>
 
-        {/* User profile avatar & logout */}
-        <div className="flex items-center gap-2 border-l border-slate-200 dark:border-slate-800 pl-3">
-          <div className="w-8 h-8 rounded-full bg-emerald-600 text-white font-semibold flex items-center justify-center text-xs shadow-xs">
+        {/* User initials & logout */}
+        <div className="flex items-center gap-2 pl-2 border-l border-zinc-200 dark:border-zinc-800">
+          <div className="w-6 h-6 rounded-full bg-zinc-800 dark:bg-zinc-200 text-white dark:text-zinc-900 font-semibold flex items-center justify-center text-[10px]">
             {currentUser.full_name.charAt(0)}
           </div>
-          <div className="hidden lg:block text-left">
-            <div className="text-xs font-semibold text-slate-800 dark:text-slate-200 line-clamp-1">
-              {currentUser.full_name}
-            </div>
-            <div className="text-[10px] text-slate-400 line-clamp-1">
-              {currentUser.nim || currentUser.email}
-            </div>
-          </div>
+          <span className="hidden lg:inline text-xs font-medium text-zinc-700 dark:text-zinc-300">
+            {currentUser.full_name.split(' ')[0]}
+          </span>
           <button
             onClick={handleLogout}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors ml-1"
+            className="p-1 rounded text-zinc-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors ml-0.5"
             title="Keluar"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
           </button>
@@ -184,4 +175,3 @@ export const Header: React.FC<HeaderProps> = ({
     </header>
   );
 };
-

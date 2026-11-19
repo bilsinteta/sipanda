@@ -42,50 +42,43 @@ export default function PengajuanListPage() {
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-zinc-200/80 dark:border-zinc-800/80">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
               Daftar Usulan Pendanaan Kegiatan
             </h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            <p className="text-xs text-zinc-500 mt-0.5">
               Seluruh rekapitulasi proposal kegiatan mahasiswa dan Ormawa FILKOM UB
             </p>
           </div>
 
           {currentUser.role === 'mahasiswa' && (
             <Link href="/dashboard/pengajuan/baru">
-              <Button variant="primary">
-                + Ajukan Usulan Baru
+              <Button variant="primary" size="sm">
+                + Usulan Baru
               </Button>
             </Link>
           )}
         </div>
 
-        {/* Filter & Search Bar */}
-        <Card className="p-4">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {/* Filter */}
+        <Card className="p-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
             <div>
-              <label className="block text-xs font-semibold text-slate-500 mb-1">
-                Pencarian
-              </label>
               <input
                 type="text"
-                placeholder="Cari judul, ormawa, kode proposal..."
+                placeholder="Cari judul, ormawa, kode..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full text-xs rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-1.5 text-zinc-900 dark:text-zinc-100 focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-500 mb-1">
-                Kategori Kegiatan
-              </label>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full text-xs rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2.5 py-1.5 text-zinc-900 dark:text-zinc-100 focus:outline-none"
               >
                 <option value="all">Semua Kategori</option>
                 {categories.map((c) => (
@@ -97,13 +90,10 @@ export default function PengajuanListPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-500 mb-1">
-                Status Alur
-              </label>
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className="w-full text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full text-xs rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-2.5 py-1.5 text-zinc-900 dark:text-zinc-100 focus:outline-none"
               >
                 <option value="all">Semua Status</option>
                 <option value="submitted">Diajukan</option>
@@ -117,72 +107,71 @@ export default function PengajuanListPage() {
           </div>
         </Card>
 
-        {/* Results Table */}
+        {/* Results */}
         <Card>
           {filteredApps.length === 0 ? (
-            <div className="py-16 text-center text-slate-500">
-              <p className="text-sm font-semibold">Tidak ditemukan data pengajuan</p>
-              <p className="text-xs text-slate-400 mt-1">Coba sesuaikan kata kunci pencarian atau filter Anda.</p>
+            <div className="py-12 text-center text-zinc-400 text-xs">
+              Tidak ditemukan data pengajuan yang sesuai.
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-200 dark:border-slate-800 text-slate-500 uppercase tracking-wider font-semibold">
-                    <th className="py-3 px-3">Kode</th>
-                    <th className="py-3 px-3">Judul Kegiatan</th>
-                    <th className="py-3 px-3">Ormawa / Pengaju</th>
-                    <th className="py-3 px-3">Kategori</th>
-                    <th className="py-3 px-3">Usulan Dana</th>
-                    <th className="py-3 px-3">Status</th>
-                    <th className="py-3 px-3">Est. Kertas Dihemat</th>
-                    <th className="py-3 px-3 text-right">Tindakan</th>
+                  <tr className="border-b border-zinc-200/80 dark:border-zinc-800 text-zinc-400 uppercase tracking-wider font-medium text-[11px]">
+                    <th className="py-2.5 px-3">Kode</th>
+                    <th className="py-2.5 px-3">Judul Kegiatan</th>
+                    <th className="py-2.5 px-3">Ormawa</th>
+                    <th className="py-2.5 px-3">Kategori</th>
+                    <th className="py-2.5 px-3">Usulan Dana</th>
+                    <th className="py-2.5 px-3">Status</th>
+                    <th className="py-2.5 px-3">Kertas Dihemat</th>
+                    <th className="py-2.5 px-3 text-right">Aksi</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+                <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/60">
                   {filteredApps.map((app) => (
                     <tr
                       key={app.id}
-                      className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors"
+                      className="hover:bg-zinc-50/80 dark:hover:bg-zinc-800/40 transition-colors"
                     >
-                      <td className="py-3.5 px-3 font-mono text-emerald-600 dark:text-emerald-400 font-semibold whitespace-nowrap">
+                      <td className="py-3 px-3 font-mono text-zinc-500 whitespace-nowrap">
                         {app.id}
                       </td>
-                      <td className="py-3.5 px-3 max-w-xs">
+                      <td className="py-3 px-3 max-w-xs">
                         <Link
                           href={`/dashboard/pengajuan/${app.id}`}
-                          className="font-semibold text-slate-900 dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400 line-clamp-2"
+                          className="font-medium text-zinc-900 dark:text-zinc-100 hover:underline block truncate"
                         >
                           {app.title}
                         </Link>
-                        <div className="text-[11px] text-slate-400 mt-0.5">
-                          Acara: {app.target_date}
+                        <div className="text-[11px] text-zinc-400 mt-0.5 font-mono">
+                          {app.target_date}
                         </div>
                       </td>
-                      <td className="py-3.5 px-3">
-                        <div className="font-medium text-slate-800 dark:text-slate-200">
+                      <td className="py-3 px-3">
+                        <div className="text-zinc-800 dark:text-zinc-200 truncate max-w-[160px]">
                           {app.organization_name}
                         </div>
-                        <div className="text-[11px] text-slate-400">
+                        <div className="text-[11px] text-zinc-400 truncate max-w-[160px]">
                           {app.applicant_name}
                         </div>
                       </td>
-                      <td className="py-3.5 px-3 text-slate-600 dark:text-slate-300">
+                      <td className="py-3 px-3 text-zinc-500 whitespace-nowrap">
                         {app.activity_category}
                       </td>
-                      <td className="py-3.5 px-3 font-semibold text-slate-900 dark:text-white whitespace-nowrap">
+                      <td className="py-3 px-3 font-mono font-medium text-zinc-900 dark:text-zinc-100 whitespace-nowrap">
                         Rp {Number(app.amount_requested).toLocaleString('id-ID')}
                       </td>
-                      <td className="py-3.5 px-3 whitespace-nowrap">
+                      <td className="py-3 px-3 whitespace-nowrap">
                         <Badge status={app.status} />
                       </td>
-                      <td className="py-3.5 px-3 text-emerald-700 dark:text-emerald-400 font-medium whitespace-nowrap">
-                        🌿 {app.estimated_paper_sheets} lembar
+                      <td className="py-3 px-3 font-mono text-zinc-500 whitespace-nowrap">
+                        {app.estimated_paper_sheets} lembar
                       </td>
-                      <td className="py-3.5 px-3 text-right whitespace-nowrap">
+                      <td className="py-3 px-3 text-right whitespace-nowrap">
                         <Link href={`/dashboard/pengajuan/${app.id}`}>
                           <Button variant="outline" size="sm">
-                            Buka Detail
+                            Detail
                           </Button>
                         </Link>
                       </td>
@@ -197,4 +186,3 @@ export default function PengajuanListPage() {
     </DashboardLayout>
   );
 }
-

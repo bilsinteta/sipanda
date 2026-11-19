@@ -80,15 +80,12 @@ export default function KalkulatorEmisiPage() {
     <DashboardLayout>
       <div className="space-y-6 max-w-6xl mx-auto">
         {/* Title Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-zinc-200/80 dark:border-zinc-800/80">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xl">📊</span>
-              <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                Kalkulator Estimasi Jejak Karbon (CO₂e) SIPANDA
-              </h1>
-            </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+              Kalkulator Estimasi Jejak Karbon (CO₂e)
+            </h1>
+            <p className="text-xs text-zinc-500 mt-0.5">
               Model komparasi matematis antara proses administrasi fisik konvensional dan operasional digital SWDM v4
             </p>
           </div>
@@ -102,18 +99,15 @@ export default function KalkulatorEmisiPage() {
         </div>
 
         {/* Methodological Warning Alert from PRD & Spreadsheet */}
-        <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 text-xs text-amber-900 dark:text-amber-200">
-          <div className="flex items-start gap-2.5">
-            <span className="text-lg leading-none">⚠️</span>
-            <div>
-              <strong className="block font-bold mb-1">
-                Peringatan Metodologis (GHG Protocol & PRD Bab 2.3):
-              </strong>
-              <p className="leading-relaxed text-amber-800 dark:text-amber-300">
-                Emisi produksi kertas (<strong>kg CO₂</strong>) dan emisi operasional listrik/digital (<strong>kg CO₂e</strong>) memiliki cakupan gas dan batas sistem yang berbeda.
-                Perhitungan ini merupakan estimasi berbasis asumsi kerja simulasi. Angka selisih persentase disajikan sebagai ilustrasi komparatif numerik, bukan klaim reduksi mutlak sebelum batas sistem diseragamkan.
-              </p>
-            </div>
+        <div className="p-3.5 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs text-zinc-700 dark:text-zinc-300">
+          <div>
+            <strong className="block font-semibold mb-1 text-zinc-900 dark:text-zinc-100">
+              Catatan Metodologis (GHG Protocol & PRD Bab 2.3):
+            </strong>
+            <p className="leading-relaxed text-zinc-500 dark:text-zinc-400">
+              Emisi produksi kertas (<strong>kg CO₂</strong>) dan emisi operasional listrik/digital (<strong>kg CO₂e</strong>) memiliki cakupan gas dan batas sistem yang berbeda.
+              Perhitungan ini merupakan estimasi berbasis asumsi kerja simulasi. Angka selisih persentase disajikan sebagai ilustrasi komparatif numerik, bukan klaim reduksi mutlak sebelum batas sistem diseragamkan.
+            </p>
           </div>
         </div>
 

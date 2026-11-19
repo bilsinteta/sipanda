@@ -54,105 +54,102 @@ export default function ArsipPage() {
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-zinc-200/80 dark:border-zinc-800/80">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xl">🗄️</span>
-              <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                Arsip Digital Usulan & LPJ
-              </h1>
-            </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+              Arsip Digital Usulan & LPJ
+            </h1>
+            <p className="text-xs text-zinc-500 mt-0.5">
               Pusat penyimpanan permanen seluruh dokumen proposal, RAB, verifikasi, dan LPJ kegiatan mahasiswa
             </p>
           </div>
 
           <Button variant="outline" size="sm" onClick={exportCSV}>
-            📥 Ekspor Rekap (.CSV)
+            Ekspor Rekap (.CSV)
           </Button>
         </div>
 
-        {/* 3 Metric Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {/* 3 Metrics */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <Card className="p-4">
-            <div className="text-xs text-slate-500 font-semibold">Total Dokumen Terarsip</div>
-            <div className="text-2xl font-bold text-slate-900 dark:text-white mt-1">
+            <div className="text-xs text-zinc-500 font-medium">Dokumen Terarsip</div>
+            <div className="text-2xl font-bold font-mono text-zinc-900 dark:text-zinc-100 mt-1">
               {applications.length * 2 + 1}{' '}
-              <span className="text-xs font-normal text-slate-500">Berkas</span>
+              <span className="text-xs font-normal text-zinc-500">Berkas</span>
             </div>
-            <div className="text-xs text-slate-500 mt-1">Proposal, RAB, dan LPJ Digital</div>
-          </Card>
-
-          <Card className="p-4 bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800">
-            <div className="text-xs text-emerald-800 dark:text-emerald-300 font-semibold">Kertas Fisik Tergantikan</div>
-            <div className="text-2xl font-bold text-emerald-700 dark:text-emerald-400 mt-1">
-              {totalArchivedSheets.toLocaleString('id-ID')}{' '}
-              <span className="text-xs font-normal text-slate-500">Lembar A4</span>
-            </div>
-            <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">Penyimpanan 100% paperless</div>
+            <div className="text-[11px] text-zinc-400 mt-1">Proposal, RAB, dan LPJ digital</div>
           </Card>
 
           <Card className="p-4">
-            <div className="text-xs text-slate-500 font-semibold">Total Alokasi Terekam</div>
-            <div className="text-2xl font-bold text-slate-900 dark:text-white mt-1">
+            <div className="text-xs text-zinc-500 font-medium">Kertas Tergantikan</div>
+            <div className="text-2xl font-bold font-mono text-emerald-700 dark:text-emerald-400 mt-1">
+              {totalArchivedSheets.toLocaleString('id-ID')}{' '}
+              <span className="text-xs font-normal text-zinc-500">Lembar A4</span>
+            </div>
+            <div className="text-[11px] text-zinc-400 mt-1">Penyimpanan 100% paperless</div>
+          </Card>
+
+          <Card className="p-4">
+            <div className="text-xs text-zinc-500 font-medium">Total Anggaran Terekam</div>
+            <div className="text-2xl font-bold font-mono text-zinc-900 dark:text-zinc-100 mt-1">
               Rp {(totalArchivedFunds / 1000000).toFixed(1)} Jt
             </div>
-            <div className="text-xs text-slate-500 mt-1">Akumulasi anggaran kegiatan</div>
+            <div className="text-[11px] text-zinc-400 mt-1">Akumulasi anggaran kegiatan</div>
           </Card>
         </div>
 
         {/* Search */}
-        <Card className="p-4">
+        <Card className="p-3">
           <input
             type="text"
             placeholder="Cari riwayat arsip berdasarkan kode, judul kegiatan, atau nama organisasi..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full text-xs rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="w-full text-xs rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 px-3 py-1.5 text-zinc-900 dark:text-zinc-100 focus:outline-none"
           />
         </Card>
 
-        {/* Archive Table */}
+        {/* Table */}
         <Card title="Repositori Dokumen Administrasi">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-slate-200 dark:border-slate-800 text-slate-500 uppercase tracking-wider font-semibold">
-                  <th className="py-3 px-3">Kode Dokumen</th>
-                  <th className="py-3 px-3">Kegiatan & Ormawa</th>
-                  <th className="py-3 px-3">Kategori</th>
-                  <th className="py-3 px-3">Status Terakhir</th>
-                  <th className="py-3 px-3">Tanggal Unggah</th>
-                  <th className="py-3 px-3 text-right">Aksi</th>
+                <tr className="border-b border-zinc-200/80 dark:border-zinc-800 text-zinc-400 uppercase tracking-wider font-medium text-[11px]">
+                  <th className="py-2.5 px-3">Kode Dokumen</th>
+                  <th className="py-2.5 px-3">Kegiatan & Ormawa</th>
+                  <th className="py-2.5 px-3">Kategori</th>
+                  <th className="py-2.5 px-3">Status Terakhir</th>
+                  <th className="py-2.5 px-3">Tanggal Unggah</th>
+                  <th className="py-2.5 px-3 text-right">Aksi</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+              <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/60">
                 {archivedApps.map((app) => (
                   <tr
                     key={app.id}
-                    className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors"
+                    className="hover:bg-zinc-50/80 dark:hover:bg-zinc-800/40 transition-colors"
                   >
-                    <td className="py-3.5 px-3 font-mono text-emerald-600 dark:text-emerald-400 font-semibold">
+                    <td className="py-3 px-3 font-mono text-zinc-500 whitespace-nowrap">
                       {app.id}
                     </td>
-                    <td className="py-3.5 px-3">
-                      <div className="font-semibold text-slate-900 dark:text-white">
+                    <td className="py-3 px-3">
+                      <div className="font-medium text-zinc-900 dark:text-zinc-100">
                         {app.title}
                       </div>
-                      <div className="text-[11px] text-slate-400">
-                        {app.organization_name} • Pengusul: {app.applicant_name}
+                      <div className="text-[11px] text-zinc-400">
+                        {app.organization_name} · {app.applicant_name}
                       </div>
                     </td>
-                    <td className="py-3.5 px-3 text-slate-600 dark:text-slate-300">
+                    <td className="py-3 px-3 text-zinc-500">
                       {app.activity_category}
                     </td>
-                    <td className="py-3.5 px-3">
+                    <td className="py-3 px-3 whitespace-nowrap">
                       <Badge status={app.status} />
                     </td>
-                    <td className="py-3.5 px-3 text-slate-500">
+                    <td className="py-3 px-3 font-mono text-zinc-500 whitespace-nowrap">
                       {app.created_at.split('T')[0]}
                     </td>
-                    <td className="py-3.5 px-3 text-right">
+                    <td className="py-3 px-3 text-right whitespace-nowrap">
                       <Link href={`/dashboard/pengajuan/${app.id}`}>
                         <Button variant="outline" size="sm">
                           Buka Arsip ↗
@@ -169,4 +166,3 @@ export default function ArsipPage() {
     </DashboardLayout>
   );
 }
-

@@ -20,13 +20,12 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     setTimeout(() => {
-      // Find matching mock user or default to mahasiswa
       const foundUser =
         Object.values(MOCK_USERS).find((u) => u.email.toLowerCase() === email.toLowerCase()) ||
         MOCK_USERS.mahasiswa;
       setStoredUser(foundUser);
       router.push('/dashboard');
-    }, 400);
+    }, 350);
   };
 
   const handleQuickRoleLogin = (role: UserRole) => {
@@ -36,83 +35,73 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center items-center p-4 selection:bg-emerald-500 selection:text-white">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col justify-center items-center p-4 selection:bg-zinc-900 selection:text-white dark:selection:bg-zinc-100 dark:selection:text-zinc-900">
+      <div className="w-full max-w-sm">
         {/* Brand Header */}
         <div className="text-center mb-6">
           <Link href="/" className="inline-flex items-center gap-2 mb-3">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center text-white text-2xl shadow-sm">
-              🐼
+            <div className="w-8 h-8 rounded-md bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 flex items-center justify-center font-bold text-xs">
+              SP
             </div>
-            <div className="text-left">
-              <span className="font-extrabold text-2xl tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5">
-                SIPANDA
-                <span className="text-xs px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-bold">
-                  UB
-                </span>
-              </span>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                Fakultas Ilmu Komputer Universitas Brawijaya
-              </p>
-            </div>
+            <span className="font-semibold text-lg tracking-tight text-zinc-900 dark:text-zinc-100">
+              SIPANDA
+            </span>
           </Link>
           <div className="flex justify-center mb-2">
             <CarbonBadge gramsCO2={0.08} cleanerThanPercent={91} />
           </div>
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-            Masuk ke Akun SIPANDA
-          </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Gunakan akun SSO UB atau pilih simulasi peran cepat di bawah
+          <h1 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">
+            Masuk ke Sistem
+          </h1>
+          <p className="text-xs text-zinc-500 mt-0.5">
+            Gunakan akun SSO UB atau akses simulasi peran pengujian
           </p>
         </div>
 
-        {/* Quick Demo 1-Click Role Login Card */}
-        <div className="mb-4 p-4 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
-          <div className="text-xs font-bold text-emerald-900 dark:text-emerald-300 uppercase tracking-wider mb-2 flex items-center justify-between">
-            <span>⚡ Masuk Cepat Simulasi (1-Klik)</span>
-            <span className="text-[10px] bg-emerald-200/60 dark:bg-emerald-900 px-1.5 py-0.5 rounded text-emerald-800 dark:text-emerald-200">
-              Demo Pengujian
-            </span>
+        {/* Quick Demo 1-Click Role Login */}
+        <div className="mb-4 p-3 rounded-xl bg-white dark:bg-zinc-900/60 border border-zinc-200/80 dark:border-zinc-800">
+          <div className="text-[10px] font-semibold text-zinc-400 uppercase tracking-wider mb-2 flex items-center justify-between">
+            <span>Simulasi Peran Pengujian (1-Klik)</span>
+            <span className="font-mono text-emerald-600 dark:text-emerald-400">Demo</span>
           </div>
-          <div className="grid grid-cols-2 gap-2 text-xs">
+          <div className="grid grid-cols-2 gap-1.5 text-xs">
             <button
               onClick={() => handleQuickRoleLogin('mahasiswa')}
-              className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-800 hover:border-emerald-500 text-left transition-all hover:shadow-xs"
+              className="p-2 rounded-md border border-zinc-200/80 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 text-left transition-colors bg-zinc-50/50 dark:bg-zinc-900"
             >
-              <div className="font-semibold text-slate-900 dark:text-white">👨‍🎓 Mahasiswa</div>
-              <div className="text-[10px] text-slate-500 line-clamp-1">Fayyadh (NIM: 235150401111058)</div>
+              <div className="font-medium text-zinc-900 dark:text-zinc-100">Mahasiswa</div>
+              <div className="text-[10px] text-zinc-400 truncate">Fayyadh Radhwa</div>
             </button>
             <button
               onClick={() => handleQuickRoleLogin('verifikator')}
-              className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-800 hover:border-amber-500 text-left transition-all hover:shadow-xs"
+              className="p-2 rounded-md border border-zinc-200/80 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 text-left transition-colors bg-zinc-50/50 dark:bg-zinc-900"
             >
-              <div className="font-semibold text-slate-900 dark:text-white">📋 Verifikator</div>
-              <div className="text-[10px] text-slate-500 line-clamp-1">Staf Kemahasiswaan</div>
+              <div className="font-medium text-zinc-900 dark:text-zinc-100">Verifikator</div>
+              <div className="text-[10px] text-zinc-400 truncate">Staf Kemahasiswaan</div>
             </button>
             <button
               onClick={() => handleQuickRoleLogin('approver')}
-              className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-800 hover:border-emerald-500 text-left transition-all hover:shadow-xs"
+              className="p-2 rounded-md border border-zinc-200/80 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 text-left transition-colors bg-zinc-50/50 dark:bg-zinc-900"
             >
-              <div className="font-semibold text-slate-900 dark:text-white">⚖️ Approver</div>
-              <div className="text-[10px] text-slate-500 line-clamp-1">Wakil Dekan III FILKOM</div>
+              <div className="font-medium text-zinc-900 dark:text-zinc-100">Wakil Dekan III</div>
+              <div className="text-[10px] text-zinc-400 truncate">Pemberi Persetujuan</div>
             </button>
             <button
               onClick={() => handleQuickRoleLogin('admin')}
-              className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-emerald-200 dark:border-emerald-800 hover:border-purple-500 text-left transition-all hover:shadow-xs"
+              className="p-2 rounded-md border border-zinc-200/80 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 text-left transition-colors bg-zinc-50/50 dark:bg-zinc-900"
             >
-              <div className="font-semibold text-slate-900 dark:text-white">⚙️ Admin Sistem</div>
-              <div className="text-[10px] text-slate-500 line-clamp-1">Kelola Pengguna & Audit</div>
+              <div className="font-medium text-zinc-900 dark:text-zinc-100">Admin</div>
+              <div className="text-[10px] text-zinc-400 truncate">Kelola Pengguna</div>
             </button>
           </div>
         </div>
 
-        {/* Regular Login Form */}
-        <Card className="shadow-md">
-          <form onSubmit={handleManualLogin} className="space-y-4">
+        {/* Manual Login Form */}
+        <Card>
+          <form onSubmit={handleManualLogin} className="space-y-3.5">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1">
-                Alamat Email / Akun UB
+              <label className="block text-[11px] font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                Email Akun UB
               </label>
               <input
                 type="email"
@@ -120,12 +109,12 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="nama@student.ub.ac.id"
-                className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-3 py-2 text-xs rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1">
+              <label className="block text-[11px] font-medium text-zinc-700 dark:text-zinc-300 mb-1">
                 Kata Sandi
               </label>
               <input
@@ -134,27 +123,19 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-3 py-2 text-xs rounded-md border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
               />
             </div>
 
-            <div className="flex items-center justify-between text-xs text-slate-500">
-              <label className="flex items-center gap-1.5 cursor-pointer">
-                <input type="checkbox" defaultChecked className="rounded text-emerald-600 focus:ring-emerald-500" />
-                <span>Ingat saya di perangkat ini</span>
-              </label>
-              <span className="text-emerald-600 hover:underline cursor-pointer">Lupa kata sandi?</span>
-            </div>
-
-            <Button type="submit" loading={loading} className="w-full mt-2" size="lg">
-              Masuk dengan Kredensial
+            <Button type="submit" loading={loading} className="w-full mt-2" size="md">
+              Masuk
             </Button>
           </form>
         </Card>
 
         {/* Back Link */}
-        <div className="text-center mt-6 text-xs text-slate-500">
-          <Link href="/" className="hover:text-emerald-600 dark:hover:text-emerald-400 underline">
+        <div className="text-center mt-5 text-xs text-zinc-500">
+          <Link href="/" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
             ← Kembali ke Halaman Utama
           </Link>
         </div>
@@ -162,4 +143,3 @@ export default function LoginPage() {
     </div>
   );
 }
-

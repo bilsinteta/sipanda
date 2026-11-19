@@ -12,357 +12,350 @@ export default function HomePage() {
   const digitalOperationalCO2eKg = 0.115; // kg CO2e based on SWDM v4
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col selection:bg-emerald-500 selection:text-white">
-      {/* Top Announcement Bar */}
-      <div className="bg-emerald-900 text-emerald-100 px-4 py-2 text-xs text-center flex items-center justify-center gap-2">
-        <span>🌿</span>
-        <span>
-          <strong>Proyek SIPANDA FILKOM UB:</strong> Rancang Bangun Sistem Informasi Pengajuan Dana Berbasis Green Software Engineering.
-        </span>
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col selection:bg-zinc-900 selection:text-white dark:selection:bg-zinc-100 dark:selection:text-zinc-900">
+      {/* Top Banner */}
+      <div className="border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/60 px-4 py-2 text-center text-xs text-zinc-600 dark:text-zinc-400">
+        <span className="font-medium text-zinc-900 dark:text-zinc-100">Proyek Riset Green Software Engineering</span>
+        <span className="mx-2 text-zinc-300 dark:text-zinc-700">·</span>
+        <span>Fakultas Ilmu Komputer, Universitas Brawijaya</span>
       </div>
 
       {/* Navigation */}
-      <nav className="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <nav className="border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky top-0 z-40">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white text-xl shadow-xs">
-              🐼
+            <div className="w-7 h-7 rounded-md bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 flex items-center justify-center font-bold text-xs tracking-wider">
+              SP
             </div>
             <div>
-              <span className="font-extrabold text-lg tracking-tight flex items-center gap-1.5">
+              <span className="font-semibold text-sm tracking-tight flex items-center gap-1.5">
                 SIPANDA
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-bold">
+                <span className="text-[10px] font-mono px-1 py-0.2 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
                   FILKOM UB
                 </span>
               </span>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400">
-                Sustainable Student Funding Information System
-              </p>
             </div>
           </div>
 
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
-            <a href="#fitur" className="hover:text-emerald-600 dark:hover:text-emerald-400">Fitur Sistem</a>
-            <a href="#green-it" className="hover:text-emerald-600 dark:hover:text-emerald-400">Green IT & TBL</a>
-            <a href="#emisi" className="hover:text-emerald-600 dark:hover:text-emerald-400">Kalkulasi CO₂e</a>
-            <a href="#tim" className="hover:text-emerald-600 dark:hover:text-emerald-400">Tim Pengembang</a>
+          <div className="hidden md:flex items-center gap-6 text-xs text-zinc-600 dark:text-zinc-400">
+            <a href="#komparasi" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Estimasi Emisi</a>
+            <a href="#tbl" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Dampak TBL</a>
+            <a href="#prinsip" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Prinsip GSE</a>
+            <a href="#tim" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Tim Peneliti</a>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <Link
               href="/login"
-              className="text-xs sm:text-sm font-medium px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="text-xs font-medium px-3 py-1.5 rounded-md text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors"
             >
               Masuk
             </Link>
             <Link
               href="/dashboard"
-              className="text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition-colors flex items-center gap-1.5"
+              className="text-xs font-medium px-3.5 py-1.5 rounded-md bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 transition-colors"
             >
-              <span>Buka Demo</span>
-              <span>→</span>
+              Buka Sistem →
             </Link>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-12 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center">
-        <div className="mb-4">
+      <section className="pt-16 pb-16 px-4 sm:px-6 max-w-4xl mx-auto flex flex-col items-center text-center">
+        <div className="mb-6">
           <CarbonBadge gramsCO2={0.08} cleanerThanPercent={91} />
         </div>
 
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight max-w-4xl text-slate-900 dark:text-white leading-tight">
-          Digitalisasi Pengajuan Dana Mahasiswa{' '}
-          <span className="text-emerald-600 dark:text-emerald-400 underline decoration-emerald-300 dark:decoration-emerald-700 underline-offset-8">
-            Bebas Kertas & Rendah Emisi
-          </span>
+        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 max-w-3xl leading-[1.15]">
+          Digitalisasi Pengajuan Dana Mahasiswa Bebas Kertas & Rendah Emisi
         </h1>
 
-        <p className="mt-6 text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
-          Mengalihkan administrasi cetak proposal dan LPJ di Fakultas Ilmu Komputer Universitas Brawijaya
-          ke platform digital yang dirancang dengan prinsip <strong>Green Software Engineering</strong>,
-          mengurangi hingga <strong>2.000 lembar kertas/tahun</strong> dan menekan estimasi jejak karbon secara signifikan.
+        <p className="mt-5 text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed">
+          Mengalihkan administrasi cetak proposal dan LPJ di Fakultas Ilmu Komputer Universitas Brawijaya ke platform digital berstandar <strong>Green Software Engineering</strong>, mengeliminasi hingga <strong>2.000 lembar kertas/tahun</strong>.
         </p>
 
         {/* Action Buttons */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/dashboard/pengajuan/baru"
-            className="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm sm:text-base shadow-md hover:shadow-lg transition-all flex items-center gap-2"
+            className="px-4.5 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 text-xs sm:text-sm font-medium transition-colors"
           >
-            <span>📝 Buat Pengajuan Dana</span>
+            Buat Usulan Baru
           </Link>
           <Link
             href="/dashboard/emisi"
-            className="px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 font-semibold text-sm sm:text-base transition-colors flex items-center gap-2"
+            className="px-4.5 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-medium transition-colors"
           >
-            <span>📊 Simulasi Kalkulator CO₂e</span>
+            Simulasi Kalkulator CO₂e
           </Link>
         </div>
 
-        {/* Quick Role Simulation Pills */}
-        <div className="mt-10 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm max-w-2xl w-full text-left">
-          <div className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2 flex items-center justify-between">
-            <span>Akses Cepat Pengujian (4 Aktor Sistem)</span>
-            <span className="text-emerald-600 dark:text-emerald-400 font-mono text-[11px]">1-Click Demo</span>
+        {/* 1-Click Interactive Role Cards */}
+        <div className="mt-12 w-full p-4 rounded-xl bg-white dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 text-left">
+          <div className="flex items-center justify-between pb-3 mb-3 border-b border-zinc-100 dark:border-zinc-800/80">
+            <span className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
+              Akses Simulasi Peran (Demo 1-Klik)
+            </span>
+            <span className="text-[11px] text-zinc-400">Pilih peran untuk menguji alur</span>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
             <Link
               href="/dashboard?role=mahasiswa"
-              className="p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-emerald-500 bg-slate-50 dark:bg-slate-800/50 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition-colors"
+              className="p-3 rounded-lg border border-zinc-200/80 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 bg-zinc-50/50 dark:bg-zinc-900 transition-colors"
             >
-              <div className="font-semibold text-slate-800 dark:text-slate-200">👨‍🎓 Mahasiswa</div>
-              <div className="text-[10px] text-slate-500">Ajukan dana & LPJ</div>
+              <div className="font-semibold text-zinc-900 dark:text-zinc-100">Mahasiswa</div>
+              <div className="text-[11px] text-zinc-500 mt-0.5">Ajukan proposal & LPJ</div>
             </Link>
             <Link
               href="/dashboard?role=verifikator"
-              className="p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-amber-500 bg-slate-50 dark:bg-slate-800/50 hover:bg-amber-50 dark:hover:bg-amber-950/40 transition-colors"
+              className="p-3 rounded-lg border border-zinc-200/80 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 bg-zinc-50/50 dark:bg-zinc-900 transition-colors"
             >
-              <div className="font-semibold text-slate-800 dark:text-slate-200">📋 Verifikator</div>
-              <div className="text-[10px] text-slate-500">Periksa & catat revisi</div>
+              <div className="font-semibold text-zinc-900 dark:text-zinc-100">Verifikator</div>
+              <div className="text-[11px] text-zinc-500 mt-0.5">Periksa berkas & revisi</div>
             </Link>
             <Link
               href="/dashboard?role=approver"
-              className="p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-emerald-500 bg-slate-50 dark:bg-slate-800/50 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition-colors"
+              className="p-3 rounded-lg border border-zinc-200/80 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 bg-zinc-50/50 dark:bg-zinc-900 transition-colors"
             >
-              <div className="font-semibold text-slate-800 dark:text-slate-200">⚖️ Approver</div>
-              <div className="text-[10px] text-slate-500">Wakil Dekan III</div>
+              <div className="font-semibold text-zinc-900 dark:text-zinc-100">Wakil Dekan III</div>
+              <div className="text-[11px] text-zinc-500 mt-0.5">Persetujuan alokasi dana</div>
             </Link>
             <Link
               href="/dashboard?role=admin"
-              className="p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-purple-500 bg-slate-50 dark:bg-slate-800/50 hover:bg-purple-50 dark:hover:bg-purple-950/40 transition-colors"
+              className="p-3 rounded-lg border border-zinc-200/80 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 bg-zinc-50/50 dark:bg-zinc-900 transition-colors"
             >
-              <div className="font-semibold text-slate-800 dark:text-slate-200">⚙️ Admin</div>
-              <div className="text-[10px] text-slate-500">Kelola pengguna</div>
+              <div className="font-semibold text-zinc-900 dark:text-zinc-100">Admin Sistem</div>
+              <div className="text-[11px] text-zinc-500 mt-0.5">Audit & manajemen akun</div>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Comparative Emission Metric Cards (Spreadsheet Data) */}
-      <section id="emisi" className="py-12 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-10">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-              Hasil Estimasi Emisi & Jejak Karbon
-            </h2>
-            <h3 className="text-2xl sm:text-3xl font-extrabold mt-1 text-slate-900 dark:text-white">
+      {/* Comparison Section */}
+      <section id="komparasi" className="py-16 bg-white dark:bg-zinc-900/40 border-y border-zinc-200/80 dark:border-zinc-800/80">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="max-w-2xl mb-10">
+            <span className="text-xs font-mono font-medium text-emerald-700 dark:text-emerald-400">
+              HASIL ESTIMASI RISET
+            </span>
+            <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">
               Skenario Konvensional vs. Digital SIPANDA
-            </h3>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-              Berdasarkan model perhitungan dari studi Ekin & Elitok (2024), Nugroho dkk. (2022), dan Sustainable Web Design Model (SWDM v4).
+            </h2>
+            <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1.5">
+              Mengacu pada model emisi Ekin & Elitok (2024), Nugroho dkk. (2022), dan Sustainable Web Design Model (SWDM v4).
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1: Kertas Konvensional */}
-            <div className="rounded-2xl p-6 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Conventional Card */}
+            <div className="p-5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-semibold mb-2">
-                  <span>PROSES KONVENSIONAL</span>
-                  <span className="text-rose-600 dark:text-rose-400">Sebelum SIPANDA</span>
+                <div className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1">
+                  Sebelum SIPANDA
                 </div>
-                <div className="text-3xl font-extrabold text-slate-900 dark:text-white">
-                  {conventionalPaperCO2Kg} <span className="text-sm font-normal text-slate-500">kg CO₂/tahun</span>
+                <div className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                  Proses Kertas Fisik
                 </div>
-                <div className="mt-2 text-xs text-slate-600 dark:text-slate-300 space-y-1">
-                  <p>• <strong>{annualPaperSheets.toLocaleString('id-ID')} lembar A4</strong> (100 pengajuan × 20 lembar)</p>
-                  <p>• Faktor emisi kertas: 34 g CO₂/lembar</p>
-                  <p>• Ditambah emisi listrik printer: <strong>{conventionalPrinterCO2eKg} kg CO₂e</strong> (0,5 kWh × 1,06 kg/kWh)</p>
+                <div className="text-2xl font-bold font-mono text-zinc-900 dark:text-zinc-100 mt-3">
+                  {conventionalPaperCO2Kg} <span className="text-xs font-normal text-zinc-500">kg CO₂/thn</span>
                 </div>
+                <ul className="mt-3 text-xs text-zinc-600 dark:text-zinc-400 space-y-1.5 border-t border-zinc-200/60 dark:border-zinc-800/80 pt-3">
+                  <li>· {annualPaperSheets.toLocaleString('id-ID')} lembar A4 per tahun</li>
+                  <li>· Faktor kertas: 34 g CO₂/lembar</li>
+                  <li>· Listrik printer: {conventionalPrinterCO2eKg} kg CO₂e</li>
+                </ul>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 text-[11px] text-slate-500">
-                Biaya cetak terbuang: ± Rp 1.000.000 / tahun
+              <div className="mt-4 pt-3 border-t border-zinc-200/60 dark:border-zinc-800/80 text-[11px] text-zinc-400">
+                Biaya cetak terbuang: ± Rp 1.000.000/thn
               </div>
             </div>
 
-            {/* Card 2: Digital SIPANDA */}
-            <div className="rounded-2xl p-6 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-800 flex flex-col justify-between">
+            {/* Digital Card */}
+            <div className="p-5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between text-xs text-emerald-800 dark:text-emerald-300 font-semibold mb-2">
-                  <span>OPERASIONAL DIGITAL</span>
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">SIPANDA</span>
+                <div className="text-[11px] font-mono uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
+                  Platform SIPANDA
                 </div>
-                <div className="text-3xl font-extrabold text-emerald-700 dark:text-emerald-400">
-                  {digitalOperationalCO2eKg} <span className="text-sm font-normal text-slate-500">kg CO₂e/tahun</span>
+                <div className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                  Operasional Digital
                 </div>
-                <div className="mt-2 text-xs text-slate-700 dark:text-slate-300 space-y-1">
-                  <p>• <strong>400 akses digital/tahun</strong> (4 siklus/pengajuan)</p>
-                  <p>• Transfer data teroptimasi: <strong>1,2 - 1,56 GB/tahun</strong></p>
-                  <p>• Energi digital SWDM v4: <strong>0,23 - 0,30 kWh/tahun</strong></p>
-                  <p>• Emisi per akses: hanya <strong>~0,00037 kg CO₂e</strong></p>
+                <div className="text-2xl font-bold font-mono text-emerald-700 dark:text-emerald-400 mt-3">
+                  {digitalOperationalCO2eKg} <span className="text-xs font-normal text-zinc-500">kg CO₂e/thn</span>
                 </div>
+                <ul className="mt-3 text-xs text-zinc-600 dark:text-zinc-400 space-y-1.5 border-t border-zinc-200/60 dark:border-zinc-800/80 pt-3">
+                  <li>· 400 akses digital per tahun</li>
+                  <li>· Transfer data teroptimasi: 1,2–1,56 GB</li>
+                  <li>· Energi sistem SWDM v4: 0,23–0,30 kWh</li>
+                </ul>
               </div>
-              <div className="mt-4 pt-3 border-t border-emerald-200 dark:border-emerald-800/60 text-[11px] text-emerald-800 dark:text-emerald-300 font-medium">
-                Kertas dieliminasi: 100% berkas digital
+              <div className="mt-4 pt-3 border-t border-zinc-200/60 dark:border-zinc-800/80 text-[11px] text-emerald-700 dark:text-emerald-400 font-medium">
+                100% berkas digital bebas kertas
               </div>
             </div>
 
-            {/* Card 3: Selisih & Prinsip Metodologi */}
-            <div className="rounded-2xl p-6 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
+            {/* Savings Card */}
+            <div className="p-5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-semibold mb-2">
-                  <span>POTENSI PENGHEMATAN</span>
-                  <span className="text-emerald-600 dark:text-emerald-400">Komparasi</span>
+                <div className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1">
+                  Komparasi Numerik
                 </div>
-                <div className="text-3xl font-extrabold text-slate-900 dark:text-white">
-                  99,83% <span className="text-sm font-normal text-slate-500">selisih numerik</span>
+                <div className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                  Potensi Pengurangan
                 </div>
-                <div className="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Perbandingan numerik emisi produksi kertas terhadap operasional digital menunjukkan potensi reduksi substansial dalam administrasi fakultas.
+                <div className="text-2xl font-bold font-mono text-zinc-900 dark:text-zinc-100 mt-3">
+                  99,83% <span className="text-xs font-normal text-zinc-500">penurunan</span>
                 </div>
+                <p className="mt-3 text-xs text-zinc-600 dark:text-zinc-400 border-t border-zinc-200/60 dark:border-zinc-800/80 pt-3 leading-relaxed">
+                  Perbandingan numerik emisi produksi kertas terhadap jejak energi digital menunjukkan reduksi substansial.
+                </p>
               </div>
-              <div className="mt-4 p-2.5 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-[11px] text-amber-800 dark:text-amber-300">
-                <strong>Catatan Metodologi:</strong> Batas sistem emisi produksi kertas (kg CO₂) dan listrik/digital (kg CO₂e) dilaporkan terpisah sesuai standar GHG Protocol.
+              <div className="mt-4 pt-2 text-[10px] text-zinc-400 leading-tight">
+                * Batas sistem emisi produksi kertas (kg CO₂) dan listrik/digital (kg CO₂e) dilaporkan terpisah sesuai GHG Protocol.
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Triple Bottom Line (TBL) Section */}
-      <section id="green-it" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-            Analisis Dampak Berkelanjutan
-          </h2>
-          <h3 className="text-2xl sm:text-3xl font-extrabold mt-1 text-slate-900 dark:text-white">
+      {/* Triple Bottom Line */}
+      <section id="tbl" className="py-16 max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="max-w-2xl mb-10">
+          <span className="text-xs font-mono font-medium text-zinc-400 uppercase">
+            Analisis Berkelanjutan
+          </span>
+          <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">
             Pendekatan Triple Bottom Line (TBL)
-          </h3>
-          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-            Evaluasi menyeluruh terhadap aspek Lingkungan (Planet), Sosial (People), dan Ekonomi (Profit) sesuai PRD Bab 3.2.
+          </h2>
+          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1.5">
+            Evaluasi menyeluruh pada pilar Lingkungan, Sosial, dan Ekonomi sesuai PRD Bab 3.2.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
-            <div className="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 flex items-center justify-center text-2xl mb-4">
-              🌍
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="p-5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800">
+            <div className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
+              Planet (Lingkungan)
             </div>
-            <h4 className="text-lg font-bold text-slate-900 dark:text-white">Planet (Lingkungan)</h4>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              Mengeliminasi penggunaan rata-rata 20 lembar kertas cetak per proposal. Berpotensi mencegah pelepasan 68 kg CO₂ dari produksi kertas serta limbah fisik dokumen proposal dan LPJ setiap tahunnya di FILKOM.
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              Mengeliminasi rata-rata 20 lembar kertas cetak per usulan kegiatan. Berpotensi mencegah pelepasan 68 kg CO₂ dari manufaktur kertas dan limbah fisik proposal di FILKOM.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
-            <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 flex items-center justify-center text-2xl mb-4">
-              👥
+          <div className="p-5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800">
+            <div className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
+              People (Sosial)
             </div>
-            <h4 className="text-lg font-bold text-slate-900 dark:text-white">People (Sosial)</h4>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              Memudahkan mahasiswa dan pengurus Ormawa dalam mengajukan permohonan tanpa harus bolak-balik ke gedung dekanat. Status verifikasi dan revisi dapat dipantau transparan secara real-time.
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              Mahasiswa dan pengurus Ormawa dapat memantau status validasi dan catatan revisi secara transparan tanpa bolak-balik ke gedung dekanat.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
-            <div className="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 flex items-center justify-center text-2xl mb-4">
-              💼
+          <div className="p-5 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800">
+            <div className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
+              Profit (Ekonomi)
             </div>
-            <h4 className="text-lg font-bold text-slate-900 dark:text-white">Profit (Ekonomi)</h4>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              Menghilangkan pengeluaran biaya cetak, jilid proposal, dan tinta printer mahasiswa. Menghemat waktu kerja staf administrasi fakultas dalam menyortir berkas manual dan pengarsipan fisik.
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              Menghilangkan pengeluaran biaya cetak, jilid proposal, dan tinta mahasiswa, serta memangkas waktu kerja administrasi fakultas dalam penyortiran berkas fisik.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Green Software Engineering Implementation Highlights */}
-      <section id="fitur" className="py-16 bg-slate-100/60 dark:bg-slate-900/60 border-t border-slate-200 dark:border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-              Arsitektur & Bukti Green Coding
+      {/* GSE Principles */}
+      <section id="prinsip" className="py-16 bg-white dark:bg-zinc-900/40 border-t border-zinc-200/80 dark:border-zinc-800/80">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="max-w-2xl mb-10">
+            <span className="text-xs font-mono font-medium text-zinc-400 uppercase">
+              Arsitektur Sistem
+            </span>
+            <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">
+              Penerapan Green Software Engineering
             </h2>
-            <h3 className="text-2xl sm:text-3xl font-extrabold mt-1 text-slate-900 dark:text-white">
-              Penerapan Green Software Engineering (GSE)
-            </h3>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-              Dibangun sesuai standar laporan proyek: efisiensi energi, minimalisasi transfer data, dan hardware efficiency.
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
-            <div className="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-              <div className="text-emerald-600 dark:text-emerald-400 font-bold text-base mb-1">01. System Fonts</div>
-              <p className="text-slate-600 dark:text-slate-400 text-xs">
-                Menggunakan font bawaan OS (system-ui). Menghilangkan 100% request HTTP ke Google Fonts / CDN, menghemat bandwidth jaringan.
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+            <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800">
+              <div className="font-semibold text-zinc-900 dark:text-zinc-100 mb-1">01. System Fonts</div>
+              <p className="text-zinc-500 leading-relaxed">
+                Font bawaan OS tanpa unduhan CDN font eksternal, memangkas request jaringan secara total.
               </p>
             </div>
-            <div className="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-              <div className="text-emerald-600 dark:text-emerald-400 font-bold text-base mb-1">02. Dark Mode Native</div>
-              <p className="text-slate-600 dark:text-slate-400 text-xs">
-                Mendukung tema gelap otomatis & manual, menghemat hingga 30-50% konsumsi daya layar berteknologi OLED/AMOLED.
+            <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800">
+              <div className="font-semibold text-zinc-900 dark:text-zinc-100 mb-1">02. OLED Native Theme</div>
+              <p className="text-zinc-500 leading-relaxed">
+                Mode gelap sejati menghemat hingga 30–50% konsumsi energi layar berteknologi OLED/AMOLED.
               </p>
             </div>
-            <div className="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-              <div className="text-emerald-600 dark:text-emerald-400 font-bold text-base mb-1">03. Minimal Payload</div>
-              <p className="text-slate-600 dark:text-slate-400 text-xs">
-                Bebas library UI berat. Ukuran transfer seluruh halaman hanya berkisar 0,5 - 1,0 MB, ramah untuk koneksi mobile.
+            <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800">
+              <div className="font-semibold text-zinc-900 dark:text-zinc-100 mb-1">03. Minimal Payload</div>
+              <p className="text-zinc-500 leading-relaxed">
+                Bebas library UI pihak ketiga yang berat. Total transfer seluruh halaman di bawah 1,0 MB.
               </p>
             </div>
-            <div className="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-              <div className="text-emerald-600 dark:text-emerald-400 font-bold text-base mb-1">04. Reduced Motion</div>
-              <p className="text-slate-600 dark:text-slate-400 text-xs">
-                CSS menghormati prefers-reduced-motion untuk memangkas siklus komputasi GPU dan rendering loop yang boros daya baterai.
+            <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800">
+              <div className="font-semibold text-zinc-900 dark:text-zinc-100 mb-1">04. Reduced Motion</div>
+              <p className="text-zinc-500 leading-relaxed">
+                Menghormati preferensi komputasi rendah guna menekan siklus daya render GPU pada perangkat.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Developer Team Section */}
-      <section id="tim" className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-          Tim Pengembang Mahasiswa
-        </h2>
-        <h3 className="text-2xl font-extrabold mt-1 text-slate-900 dark:text-white">
-          Program Studi Sistem Informasi FILKOM UB
-        </h3>
-        <p className="mt-1 text-xs text-slate-500">Mata Kuliah: Sistem Informasi Berkelanjutan • Dosen: Riswan Septriayadi Sianturi, Ph.D.</p>
+      {/* Research Team */}
+      <section id="tim" className="py-16 max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="max-w-2xl mb-8">
+          <span className="text-xs font-mono font-medium text-zinc-400 uppercase">
+            Tim Pengembang
+          </span>
+          <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">
+            Program Studi Sistem Informasi FILKOM UB
+          </h2>
+          <p className="text-xs text-zinc-500 mt-1">
+            Mata Kuliah: Sistem Informasi Berkelanjutan · Dosen Pengampu: Riswan Septriayadi Sianturi, Ph.D.
+          </p>
+        </div>
 
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto text-left">
-          <div className="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-            <div className="font-bold text-slate-900 dark:text-white text-sm">Fayyadh Radhwa Ferdia</div>
-            <div className="text-xs text-emerald-600 dark:text-emerald-400 font-mono mt-0.5">NIM: 235150401111058</div>
-            <div className="text-xs text-slate-500 mt-2">Sistem Informasi, Angkatan 2023</div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 text-xs">
+            <div className="font-semibold text-zinc-900 dark:text-zinc-100">Fayyadh Radhwa Ferdia</div>
+            <div className="font-mono text-zinc-500 mt-0.5">NIM: 235150401111058</div>
+            <div className="text-zinc-400 mt-1">Sistem Informasi, 2023</div>
           </div>
-          <div className="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-            <div className="font-bold text-slate-900 dark:text-white text-sm">Muhammad Nabil Fatahilah</div>
-            <div className="text-xs text-emerald-600 dark:text-emerald-400 font-mono mt-0.5">NIM: 235150401111063</div>
-            <div className="text-xs text-slate-500 mt-2">Sistem Informasi, Angkatan 2023</div>
+          <div className="p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 text-xs">
+            <div className="font-semibold text-zinc-900 dark:text-zinc-100">Muhammad Nabil Fatahilah</div>
+            <div className="font-mono text-zinc-500 mt-0.5">NIM: 235150401111063</div>
+            <div className="text-zinc-400 mt-1">Sistem Informasi, 2023</div>
           </div>
-          <div className="p-5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-            <div className="font-bold text-slate-900 dark:text-white text-sm">Muhammad Zaidan Rabbani</div>
-            <div className="text-xs text-emerald-600 dark:text-emerald-400 font-mono mt-0.5">NIM: 245150407111040</div>
-            <div className="text-xs text-slate-500 mt-2">Sistem Informasi, Angkatan 2024</div>
+          <div className="p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 text-xs">
+            <div className="font-semibold text-zinc-900 dark:text-zinc-100">Muhammad Zaidan Rabbani</div>
+            <div className="font-mono text-zinc-500 mt-0.5">NIM: 245150407111040</div>
+            <div className="text-zinc-400 mt-1">Sistem Informasi, 2024</div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 px-4 sm:px-6 lg:px-8 text-xs text-slate-500 text-center">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <footer className="mt-auto border-t border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-950 py-6 px-4 sm:px-6 text-xs text-zinc-500">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div>
-            © 2026 SIPANDA — Fakultas Ilmu Komputer, Universitas Brawijaya Malang.
+            © 2026 SIPANDA · Fakultas Ilmu Komputer, Universitas Brawijaya Malang.
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 text-xs">
             <a
               href="https://www.websitecarbon.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-emerald-600 dark:hover:text-emerald-400 underline"
+              className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
             >
-              Uji Website Carbon
+              Uji Website Carbon ↗
             </a>
-            <span>•</span>
-            <Link href="/dashboard/emisi" className="hover:text-emerald-600 dark:hover:text-emerald-400 underline">
+            <Link href="/dashboard/emisi" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
               Kalkulator CO₂e
             </Link>
-            <span>•</span>
-            <Link href="/dashboard" className="hover:text-emerald-600 dark:hover:text-emerald-400 underline">
-              Dashboard Sistem
+            <Link href="/dashboard" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+              Dashboard
             </Link>
           </div>
         </div>
