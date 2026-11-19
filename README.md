@@ -131,3 +131,4 @@ Untuk panduan langkah-demi-langkah setup Supabase dan integrasi deployment Verce
 3. `Tugas Proyek Akhir.docx` (Panduan instruksi tugas proyek akhir)
 4. `GREEN_SOFTWARE_GUIDELINES.md` (Aturan & pedoman Green Software Engineering)
 5. `DEPLOYMENT_GUIDE.md` (Panduan setup Supabase dan Vercel)
+

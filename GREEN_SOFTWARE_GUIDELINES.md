@@ -48,3 +48,4 @@ $$\text{Emisi Operasional (kg CO}_2\text{e)} = \frac{\text{Energi (kWh)} \times 
 - [x] **Reduced Motion:** Menghormati pengaturan OS pengguna (`prefers-reduced-motion`) untuk menonaktifkan loop animasi GPU.
 - [x] **Tanpa Polling Berlebih:** Gunakan caching client-side dan server rendering untuk meminimalkan beban komputasi CPU.
 - [x] **Audit Website Carbon:** Lakukan benchmark berkala di [WebsiteCarbon.com](https://www.websitecarbon.com/) dengan target rating A+.
+

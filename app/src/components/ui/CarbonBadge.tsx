@@ -38,3 +38,4 @@ export const CarbonBadge: React.FC<CarbonBadgeProps> = ({
     </div>
   );
 };
+

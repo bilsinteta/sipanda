@@ -279,3 +279,4 @@ export const INITIAL_APPLICATIONS: FundingApplication[] = [
     approvals: [],
   },
 ];
+

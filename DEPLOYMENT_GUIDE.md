@@ -56,3 +56,4 @@ Panduan praktis ini menjelaskan cara mempublikasikan web app SIPANDA ke **GitHub
 3. Masukkan URL tersebut dan klik **Calculate**.
 4. Simpan tangkapan layar (screenshot) hasil pengujian untuk dilampirkan pada **Bab 4.2.2 Laporan Proyek Akhir** dan **Slide Pitch Deck**.
    - *Target hasil:* **Rating A+** dengan emisi karbon di bawah **0,10g CO₂ per kunjungan**.
+

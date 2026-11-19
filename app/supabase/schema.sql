@@ -135,3 +135,4 @@ create policy "Allow authenticated uploads" on storage.objects
   for insert with check (bucket_id = 'sipanda-docs' and auth.role() = 'authenticated');
 create policy "Allow public document access" on storage.objects 
   for select using (bucket_id = 'sipanda-docs');
+
