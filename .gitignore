@@ -19,6 +19,8 @@ app/dist/
 app/.env*.local
 .env
 app/.env
+!.env.example
+!app/.env.example
 
 # IDE & OS
 .vscode/
