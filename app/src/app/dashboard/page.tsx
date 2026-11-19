@@ -247,7 +247,7 @@ export default function DashboardPage() {
         {/* Minimal Footer Info */}
         <div className="p-3 rounded-lg border border-zinc-200/80 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 text-xs text-zinc-500 flex flex-col sm:flex-row items-center justify-between gap-2">
           <span>Efisiensi Transfer Data: Rata-rata transfer halaman terukur ~0,8 MB (&lt; 1 MB target).</span>
-          <CarbonBadge gramsCO2={0.08} cleanerThanPercent={91} />
+          <CarbonBadge gramsCO2={0.02} cleanerThanPercent={96} />
         </div>
       </div>
     </DashboardLayout>

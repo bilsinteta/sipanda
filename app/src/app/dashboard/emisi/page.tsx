@@ -91,7 +91,7 @@ export default function KalkulatorEmisiPage() {
           </div>
 
           <div className="flex items-center gap-2">
-            <CarbonBadge gramsCO2={0.08} cleanerThanPercent={91} />
+            <CarbonBadge gramsCO2={0.02} cleanerThanPercent={96} />
             <Button variant="outline" size="sm" onClick={resetToDefault}>
               Reset Default
             </Button>
@@ -118,8 +118,8 @@ export default function KalkulatorEmisiPage() {
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 text-xs">
             {/* Input 1: Apps / year */}
-            <div className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
-              <label className="block font-semibold text-slate-800 dark:text-slate-200 mb-1">
+            <div className="p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30">
+              <label className="block font-semibold text-zinc-800 dark:text-zinc-200 mb-1">
                 Jumlah Pengajuan per Tahun:
               </label>
               <div className="flex items-center gap-2 mt-2">
@@ -129,16 +129,16 @@ export default function KalkulatorEmisiPage() {
                   max={1000}
                   value={appsPerYear}
                   onChange={(e) => setAppsPerYear(Math.max(1, parseInt(e.target.value) || 1))}
-                  className="w-24 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-slate-900 dark:text-white"
+                  className="w-24 px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 font-bold text-zinc-900 dark:text-white"
                 />
-                <span className="text-slate-500">pengajuan/tahun</span>
+                <span className="text-zinc-500">pengajuan/tahun</span>
               </div>
-              <p className="text-[11px] text-slate-400 mt-2">Default simulasi: 100 pengajuan FILKOM</p>
+              <p className="text-[11px] text-zinc-400 mt-2">Default simulasi: 100 pengajuan FILKOM</p>
             </div>
 
             {/* Input 2: Sheets / app */}
-            <div className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
-              <label className="block font-semibold text-slate-800 dark:text-slate-200 mb-1">
+            <div className="p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30">
+              <label className="block font-semibold text-zinc-800 dark:text-zinc-200 mb-1">
                 Lembar Kertas per Pengajuan:
               </label>
               <div className="flex items-center gap-2 mt-2">
@@ -148,16 +148,16 @@ export default function KalkulatorEmisiPage() {
                   max={100}
                   value={sheetsPerApp}
                   onChange={(e) => setSheetsPerApp(Math.max(1, parseInt(e.target.value) || 1))}
-                  className="w-24 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-slate-900 dark:text-white"
+                  className="w-24 px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 font-bold text-zinc-900 dark:text-white"
                 />
-                <span className="text-slate-500">lembar A4/usulan</span>
+                <span className="text-zinc-500">lembar A4/usulan</span>
               </div>
-              <p className="text-[11px] text-slate-400 mt-2">Proposal, RAB, & lembar pengesahan (default: 20)</p>
+              <p className="text-[11px] text-zinc-400 mt-2">Proposal, RAB, & lembar pengesahan (default: 20)</p>
             </div>
 
             {/* Input 3: Printer Electricity */}
-            <div className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
-              <label className="block font-semibold text-slate-800 dark:text-slate-200 mb-1">
+            <div className="p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30">
+              <label className="block font-semibold text-zinc-800 dark:text-zinc-200 mb-1">
                 Konsumsi Listrik Printer:
               </label>
               <div className="flex items-center gap-2 mt-2">
@@ -168,16 +168,16 @@ export default function KalkulatorEmisiPage() {
                   max={50}
                   value={printerKwh}
                   onChange={(e) => setPrinterKwh(Math.max(0.1, parseFloat(e.target.value) || 0.1))}
-                  className="w-24 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-slate-900 dark:text-white"
+                  className="w-24 px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 font-bold text-zinc-900 dark:text-white"
                 />
-                <span className="text-slate-500">kWh/tahun</span>
+                <span className="text-zinc-500">kWh/tahun</span>
               </div>
-              <p className="text-[11px] text-slate-400 mt-2">Faktor Jamali: 1,06 kg CO₂e/kWh (Nugroho 2022)</p>
+              <p className="text-[11px] text-zinc-400 mt-2">Faktor Jamali: 1,06 kg CO₂e/kWh (Nugroho 2022)</p>
             </div>
 
             {/* Input 4: Digital Access / app */}
-            <div className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
-              <label className="block font-semibold text-slate-800 dark:text-slate-200 mb-1">
+            <div className="p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30">
+              <label className="block font-semibold text-zinc-800 dark:text-zinc-200 mb-1">
                 Siklus Akses Digital per Usulan:
               </label>
               <div className="flex items-center gap-2 mt-2">
@@ -187,16 +187,16 @@ export default function KalkulatorEmisiPage() {
                   max={20}
                   value={accessPerApp}
                   onChange={(e) => setAccessPerApp(Math.max(1, parseInt(e.target.value) || 1))}
-                  className="w-24 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-slate-900 dark:text-white"
+                  className="w-24 px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 font-bold text-zinc-900 dark:text-white"
                 />
-                <span className="text-slate-500">siklus akses</span>
+                <span className="text-zinc-500">siklus akses</span>
               </div>
-              <p className="text-[11px] text-slate-400 mt-2">Ajukan, verifikasi, keputusan, & LPJ (default: 4)</p>
+              <p className="text-[11px] text-zinc-400 mt-2">Ajukan, verifikasi, keputusan, & LPJ (default: 4)</p>
             </div>
 
             {/* Input 5: Data Transfer / access */}
-            <div className="p-3.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
-              <label className="block font-semibold text-slate-800 dark:text-slate-200 mb-1">
+            <div className="p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30">
+              <label className="block font-semibold text-zinc-800 dark:text-zinc-200 mb-1">
                 Transfer Data per Akses (MB):
               </label>
               <div className="flex items-center gap-2 mt-2">
@@ -207,11 +207,11 @@ export default function KalkulatorEmisiPage() {
                   max={50}
                   value={mbPerAccess}
                   onChange={(e) => setMbPerAccess(Math.max(0.5, parseFloat(e.target.value) || 0.5))}
-                  className="w-24 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-slate-900 dark:text-white"
+                  className="w-24 px-3 py-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 font-bold text-zinc-900 dark:text-white"
                 />
-                <span className="text-slate-500">MB/siklus</span>
+                <span className="text-zinc-500">MB/siklus</span>
               </div>
-              <p className="text-[11px] text-slate-400 mt-2">Hasil ukur DevTools Network (default: 4 MB)</p>
+              <p className="text-[11px] text-zinc-400 mt-2">Hasil ukur DevTools Network (default: 4 MB)</p>
             </div>
 
             {/* Quick Summary Box */}
@@ -234,32 +234,32 @@ export default function KalkulatorEmisiPage() {
           {/* Skenario Konvensional */}
           <Card title="Skenario Konvensional (Sebelum SIPANDA)">
             <div className="space-y-4 text-xs">
-              <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-                <div className="text-slate-500 text-[11px] font-semibold uppercase">
+              <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700">
+                <div className="text-zinc-500 text-[11px] font-semibold uppercase">
                   1. Emisi Produksi Kertas A4
                 </div>
-                <div className="text-3xl font-extrabold text-slate-900 dark:text-white mt-1">
-                  {results.conventional.paperEmissionKg} <span className="text-base font-normal text-slate-500">kg CO₂/tahun</span>
+                <div className="text-3xl font-extrabold text-zinc-900 dark:text-white mt-1">
+                  {results.conventional.paperEmissionKg} <span className="text-base font-normal text-zinc-500">kg CO₂/tahun</span>
                 </div>
-                <div className="text-[11px] text-slate-500 mt-2 font-mono bg-white dark:bg-slate-900 p-2 rounded border border-slate-200 dark:border-slate-800">
+                <div className="text-[11px] text-zinc-500 mt-2 font-mono bg-white dark:bg-zinc-900 p-2 rounded border border-zinc-200 dark:border-zinc-800">
                   Rumus: {results.conventional.totalSheets} lembar × 34 g CO₂/lembar ÷ 1.000 = {results.conventional.paperEmissionKg} kg CO₂
                 </div>
-                <p className="text-[11px] text-slate-400 mt-1">
+                <p className="text-[11px] text-zinc-400 mt-1">
                   Referensi: Ekin & Elitok (2024), Global Energy.
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-                <div className="text-slate-500 text-[11px] font-semibold uppercase">
+              <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700">
+                <div className="text-zinc-500 text-[11px] font-semibold uppercase">
                   2. Emisi Listrik Printer
                 </div>
-                <div className="text-2xl font-extrabold text-slate-900 dark:text-white mt-1">
-                  {results.conventional.printerEmissionKg} <span className="text-base font-normal text-slate-500">kg CO₂e/tahun</span>
+                <div className="text-2xl font-extrabold text-zinc-900 dark:text-white mt-1">
+                  {results.conventional.printerEmissionKg} <span className="text-base font-normal text-zinc-500">kg CO₂e/tahun</span>
                 </div>
-                <div className="text-[11px] text-slate-500 mt-2 font-mono bg-white dark:bg-slate-900 p-2 rounded border border-slate-200 dark:border-slate-800">
+                <div className="text-[11px] text-zinc-500 mt-2 font-mono bg-white dark:bg-zinc-900 p-2 rounded border border-zinc-200 dark:border-zinc-800">
                   Rumus: {results.conventional.printerElectricityKwh} kWh × 1,06 kg CO₂e/kWh = {results.conventional.printerEmissionKg} kg CO₂e
                 </div>
-                <p className="text-[11px] text-slate-400 mt-1">
+                <p className="text-[11px] text-zinc-400 mt-1">
                   Referensi: Nugroho dkk. (2022), Studi LCA Jaringan Jamali.
                 </p>
               </div>
@@ -274,26 +274,26 @@ export default function KalkulatorEmisiPage() {
                   Operasional Aplikasi Web (SWDM v4)
                 </div>
                 <div className="text-3xl font-extrabold text-emerald-700 dark:text-emerald-400 mt-1">
-                  {results.digital.emissionKg} <span className="text-base font-normal text-slate-500">kg CO₂e/tahun</span>
+                  {results.digital.emissionKg} <span className="text-base font-normal text-zinc-500">kg CO₂e/tahun</span>
                 </div>
-                <div className="text-[11px] text-slate-700 dark:text-slate-300 mt-2 font-mono bg-white dark:bg-slate-900 p-2 rounded border border-emerald-200 dark:border-emerald-800">
+                <div className="text-[11px] text-zinc-700 dark:text-zinc-300 mt-2 font-mono bg-white dark:bg-zinc-900 p-2 rounded border border-emerald-200 dark:border-emerald-800">
                   Transfer Data: {results.digital.totalTransferGB} GB • Energi: {results.digital.energyKwh} kWh
                 </div>
-                <div className="text-[11px] text-slate-500 mt-2 space-y-1">
+                <div className="text-[11px] text-zinc-500 mt-2 space-y-1">
                   <p>• Data Center (0,055) + Network (0,059) + Device (0,080) = <strong>0,194 kWh/GB</strong></p>
                   <p>• Intensitas Karbon Global SWDM: <strong>494 g CO₂e/kWh</strong></p>
                   <p>• Emisi per satu siklus akses: <strong>{results.digital.emissionPerAccessKg.toFixed(6)} kg CO₂e</strong></p>
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+              <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700">
                 <div className="flex items-center justify-between text-xs font-semibold mb-1">
-                  <span className="text-slate-700 dark:text-slate-300">Selisih Numerik Emisi Kertas vs Digital:</span>
+                  <span className="text-zinc-700 dark:text-zinc-300">Selisih Numerik Emisi Kertas vs Digital:</span>
                   <span className="text-emerald-600 dark:text-emerald-400 font-bold text-base">
                     {results.comparison.differencePercentage}%
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-500 leading-relaxed mt-1">
+                <p className="text-[11px] text-zinc-500 leading-relaxed mt-1">
                   Jika emisi produksi kertas ({results.conventional.paperEmissionKg} kg CO₂) dibandingkan langsung terhadap operasional digital ({results.digital.emissionKg} kg CO₂e), terdapat selisih sekitar 99,8%.
                 </p>
               </div>
@@ -309,7 +309,7 @@ export default function KalkulatorEmisiPage() {
           <div className="overflow-x-auto text-xs">
             <table className="w-full text-left">
               <thead>
-                <tr className="border-b border-slate-200 dark:border-slate-800 text-slate-500 font-semibold uppercase tracking-wider">
+                <tr className="border-b border-zinc-200 dark:border-zinc-800 text-zinc-500 font-semibold uppercase tracking-wider">
                   <th className="py-2.5 px-3">Bulan</th>
                   <th className="py-2.5 px-3">Pengajuan</th>
                   <th className="py-2.5 px-3">Lembar Kertas</th>
@@ -318,18 +318,18 @@ export default function KalkulatorEmisiPage() {
                   <th className="py-2.5 px-3 text-right">Emisi Digital (kg CO₂e)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+              <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/60">
                 {scaledMonthly.map((m) => (
-                  <tr key={m.month} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
-                    <td className="py-2.5 px-3 font-semibold text-slate-800 dark:text-slate-200">
+                  <tr key={m.month} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/40">
+                    <td className="py-2.5 px-3 font-semibold text-zinc-800 dark:text-zinc-200">
                       {m.month}
                     </td>
                     <td className="py-2.5 px-3">{m.applications} usulan</td>
                     <td className="py-2.5 px-3">{m.sheets} lembar</td>
-                    <td className="py-2.5 px-3 font-mono text-slate-900 dark:text-white">
+                    <td className="py-2.5 px-3 font-mono text-zinc-900 dark:text-white">
                       {m.paperKg}
                     </td>
-                    <td className="py-2.5 px-3 font-mono text-slate-600 dark:text-slate-400">
+                    <td className="py-2.5 px-3 font-mono text-zinc-600 dark:text-zinc-400">
                       {m.transferGB}
                     </td>
                     <td className="py-2.5 px-3 text-right font-mono text-emerald-600 dark:text-emerald-400 font-semibold">
@@ -339,14 +339,14 @@ export default function KalkulatorEmisiPage() {
                 ))}
               </tbody>
               <tfoot>
-                <tr className="border-t-2 border-slate-300 dark:border-slate-700 font-bold bg-slate-50/60 dark:bg-slate-800/40">
+                <tr className="border-t-2 border-zinc-300 dark:border-zinc-700 font-bold bg-zinc-50/60 dark:bg-zinc-800/40">
                   <td className="py-3 px-3">TOTAL TAHUNAN</td>
                   <td className="py-3 px-3">{appsPerYear} pengajuan</td>
                   <td className="py-3 px-3">{results.conventional.totalSheets.toLocaleString('id-ID')} lembar</td>
-                  <td className="py-3 px-3 font-mono text-slate-900 dark:text-white">
+                  <td className="py-3 px-3 font-mono text-zinc-900 dark:text-white">
                     {results.conventional.paperEmissionKg} kg CO₂
                   </td>
-                  <td className="py-3 px-3 font-mono text-slate-600 dark:text-slate-400">
+                  <td className="py-3 px-3 font-mono text-zinc-600 dark:text-zinc-400">
                     {results.digital.totalTransferGB} GB
                   </td>
                   <td className="py-3 px-3 text-right font-mono text-emerald-600 dark:text-emerald-400">
@@ -366,34 +366,34 @@ export default function KalkulatorEmisiPage() {
           <div className="overflow-x-auto text-xs">
             <table className="w-full text-left">
               <thead>
-                <tr className="border-b border-slate-200 dark:border-slate-800 text-slate-500 font-semibold uppercase tracking-wider">
+                <tr className="border-b border-zinc-200 dark:border-zinc-800 text-zinc-500 font-semibold uppercase tracking-wider">
                   <th className="py-2.5 px-3">Halaman / Aktivitas</th>
                   <th className="py-2.5 px-3">Rata-rata Transfer Data</th>
                   <th className="py-2.5 px-3">Catatan Karakteristik Beban</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
+              <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/60">
                 {PAGE_TRANSFER_BENCHMARKS.map((p) => (
-                  <tr key={p.page} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
-                    <td className="py-2.5 px-3 font-semibold text-slate-800 dark:text-slate-200">
+                  <tr key={p.page} className="hover:bg-zinc-50 dark:hover:bg-zinc-800/40">
+                    <td className="py-2.5 px-3 font-semibold text-zinc-800 dark:text-zinc-200">
                       {p.page}
                     </td>
                     <td className="py-2.5 px-3 font-mono text-emerald-600 dark:text-emerald-400 font-bold">
                       {p.transferMB} MB
                     </td>
-                    <td className="py-2.5 px-3 text-slate-500">
+                    <td className="py-2.5 px-3 text-zinc-500">
                       {p.desc}
                     </td>
                   </tr>
                 ))}
               </tbody>
               <tfoot>
-                <tr className="border-t border-slate-200 dark:border-slate-800 font-bold">
+                <tr className="border-t border-zinc-200 dark:border-zinc-800 font-bold">
                   <td className="py-3 px-3">Total Transfer Satu Siklus Penuh:</td>
                   <td className="py-3 px-3 font-mono text-emerald-600 dark:text-emerald-400 text-sm">
                     4,0 MB
                   </td>
-                  <td className="py-3 px-3 text-slate-500">
+                  <td className="py-3 px-3 text-zinc-500">
                     Siklus lengkap: Login → Pengajuan → Verifikasi → Persetujuan → LPJ
                   </td>
                 </tr>
@@ -420,7 +420,7 @@ export default function KalkulatorEmisiPage() {
                 </div>
                 <div className="text-zinc-500 space-y-0.5 mt-2">
                   <p>• Emisi riil terukur: <strong className="text-zinc-900 dark:text-zinc-100 font-mono">0,02 gram CO₂ per kunjungan</strong></p>
-                  <p>• Tolok ukur global: <strong className="text-emerald-700 dark:text-emerald-400">Lebih bersih dari 98% seluruh website di dunia</strong></p>
+                  <p>• Tolok ukur global: <strong className="text-emerald-700 dark:text-emerald-400">Lebih bersih dari 96% seluruh website di dunia</strong></p>
                   <p>• Proyeksi tahunan (10.000 kunjungan/bulan): <strong className="font-mono text-zinc-900 dark:text-zinc-100">2,85 kg CO₂e / tahun (6 kWh energi)</strong></p>
                   <p>• Penyerapan alam: Cukup diserap oleh <strong className="text-zinc-900 dark:text-zinc-100">1 batang pohon</strong> dalam setahun</p>
                 </div>

@@ -42,10 +42,10 @@ export default function DetailPengajuanPage() {
     return (
       <DashboardLayout>
         <div className="py-20 text-center">
-          <h2 className="text-xl font-bold text-slate-800 dark:text-slate-200">
+          <h2 className="text-xl font-bold text-zinc-800 dark:text-zinc-200">
             Pengajuan Tidak Ditemukan
           </h2>
-          <p className="text-xs text-slate-500 mt-2">
+          <p className="text-xs text-zinc-500 mt-2">
             Kode usulan: <span className="font-mono">{id}</span> tidak terdaftar dalam sistem.
           </p>
           <Link href="/dashboard/pengajuan" className="mt-4 inline-block">
@@ -110,12 +110,12 @@ export default function DetailPengajuanPage() {
         <div className="flex items-center justify-between">
           <Link
             href="/dashboard/pengajuan"
-            className="text-xs text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center gap-1 font-medium"
+            className="text-xs text-zinc-500 hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center gap-1 font-medium"
           >
             ← Kembali ke Daftar Pengajuan
           </Link>
           <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-400">Status Terkini:</span>
+            <span className="text-xs text-zinc-400">Status Terkini:</span>
             <Badge status={app.status} />
           </div>
         </div>
@@ -235,7 +235,7 @@ export default function DetailPengajuanPage() {
           {/* Left Column: Details & Documents */}
           <div className="lg:col-span-2 space-y-6">
             <Card title="Deskripsi & Sasaran Usulan">
-              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line">
+              <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed whitespace-pre-line">
                 {app.description || 'Tidak ada deskripsi rinci.'}
               </p>
             </Card>
@@ -245,15 +245,15 @@ export default function DetailPengajuanPage() {
                 {app.documents.map((doc) => (
                   <div
                     key={doc.id}
-                    className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                    className="p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-xs hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-colors"
                   >
                     <div className="flex items-center gap-3">
                       <span className="text-xl">📄</span>
                       <div>
-                        <div className="font-semibold text-slate-900 dark:text-white">
+                        <div className="font-semibold text-zinc-900 dark:text-white">
                           {doc.file_name}
                         </div>
-                        <div className="text-[11px] text-slate-400">
+                        <div className="text-[11px] text-zinc-400">
                           {((doc.file_size || 0) / 1024).toFixed(0)} KB • Tipe:{' '}
                           <span className="uppercase font-mono">{doc.document_type}</span>
                         </div>
@@ -299,19 +299,19 @@ export default function DetailPengajuanPage() {
                   <div className="text-2xl font-extrabold text-emerald-700 dark:text-emerald-400">
                     {sheets} lembar A4
                   </div>
-                  <div className="text-[11px] text-slate-600 dark:text-slate-400 mt-1">
+                  <div className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-1">
                     Mencegah <strong>{paperEmissionKg.toFixed(2)} kg CO₂</strong> dari proses produksi kertas.
                   </div>
                 </div>
 
-                <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
-                  <div className="font-semibold text-slate-800 dark:text-slate-200 mb-1">
+                <div className="p-3 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700">
+                  <div className="font-semibold text-zinc-800 dark:text-zinc-200 mb-1">
                     Jejak Operasional Digital
                   </div>
-                  <div className="text-base font-bold text-slate-700 dark:text-slate-300">
+                  <div className="text-base font-bold text-zinc-700 dark:text-zinc-300">
                     ~0,00037 kg CO₂e
                   </div>
-                  <div className="text-[11px] text-slate-500 mt-1">
+                  <div className="text-[11px] text-zinc-500 mt-1">
                     Berdasarkan model energi SWDM v4 untuk siklus akses formulir dan dokumen.
                   </div>
                 </div>
@@ -322,16 +322,16 @@ export default function DetailPengajuanPage() {
             <Card title="Riwayat Keputusan & Catatan">
               <div className="space-y-3 text-xs">
                 {app.verifications.length === 0 && app.approvals.length === 0 ? (
-                  <p className="text-slate-400 italic">Belum ada catatan verifikasi atau persetujuan.</p>
+                  <p className="text-zinc-400 italic">Belum ada catatan verifikasi atau persetujuan.</p>
                 ) : (
                   <>
                     {app.verifications.map((v) => (
                       <div
                         key={v.id}
-                        className="p-3 rounded-lg border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30"
+                        className="p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-800/30"
                       >
                         <div className="flex items-center justify-between font-semibold">
-                          <span className="text-slate-800 dark:text-slate-200">
+                          <span className="text-zinc-800 dark:text-zinc-200">
                             {v.verifier_name}
                           </span>
                           <span
@@ -344,7 +344,7 @@ export default function DetailPengajuanPage() {
                             {v.action === 'approved' ? 'Lolos Administrasi' : 'Perlu Revisi'}
                           </span>
                         </div>
-                        <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+                        <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-1.5 leading-relaxed">
                           &quot;{v.notes}&quot;
                         </p>
                       </div>
@@ -369,7 +369,7 @@ export default function DetailPengajuanPage() {
                             {ap.action === 'approved' ? 'Dana Disetujui' : 'Ditolak'}
                           </span>
                         </div>
-                        <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+                        <p className="text-[11px] text-zinc-600 dark:text-zinc-400 mt-1.5 leading-relaxed">
                           &quot;{ap.notes}&quot;
                         </p>
                       </div>
@@ -388,7 +388,7 @@ export default function DetailPengajuanPage() {
           title="Verifikasi Administrasi Proposal"
         >
           <div className="space-y-4 text-xs">
-            <p className="text-slate-600 dark:text-slate-400">
+            <p className="text-zinc-600 dark:text-zinc-400">
               Periksa kelengkapan proposal, rincian anggaran (RAB), dan lembar pengesahan kegiatan mahasiswa.
             </p>
 
@@ -426,7 +426,7 @@ export default function DetailPengajuanPage() {
                 value={verifyNotes}
                 onChange={(e) => setVerifyNotes(e.target.value)}
                 placeholder="Berikan catatan perbaikan atau konfirmasi kelengkapan berkas..."
-                className="w-full text-xs p-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800"
+                className="w-full text-xs p-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800"
               />
             </div>
 
@@ -448,7 +448,7 @@ export default function DetailPengajuanPage() {
           title="Persetujuan Alokasi Dana (Wadek III)"
         >
           <div className="space-y-4 text-xs">
-            <p className="text-slate-600 dark:text-slate-400">
+            <p className="text-zinc-600 dark:text-zinc-400">
               Pengusul meminta dana sebesar{' '}
               <strong className="text-emerald-600">
                 Rp {Number(app.amount_requested).toLocaleString('id-ID')}
@@ -490,7 +490,7 @@ export default function DetailPengajuanPage() {
                 value={approveNotes}
                 onChange={(e) => setApproveNotes(e.target.value)}
                 placeholder="Disetujui dari DIPA FILKOM tahap I dengan ketentuan..."
-                className="w-full text-xs p-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800"
+                className="w-full text-xs p-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800"
               />
             </div>
 
@@ -512,7 +512,7 @@ export default function DetailPengajuanPage() {
           title="Unggah Laporan Pertanggungjawaban (LPJ)"
         >
           <div className="space-y-4 text-xs">
-            <p className="text-slate-600 dark:text-slate-400">
+            <p className="text-zinc-600 dark:text-zinc-400">
               Unggah berkas LPJ digital beserta bukti pengeluaran dan dokumentasi kegiatan.
             </p>
 
@@ -522,7 +522,7 @@ export default function DetailPengajuanPage() {
                 type="text"
                 value={lpjFileName}
                 onChange={(e) => setLpjFileName(e.target.value)}
-                className="w-full text-xs p-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800"
+                className="w-full text-xs p-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800"
               />
             </div>
 
@@ -533,7 +533,7 @@ export default function DetailPengajuanPage() {
                 value={lpjNotes}
                 onChange={(e) => setLpjNotes(e.target.value)}
                 placeholder="Rangkuman ketercapaian kegiatan dan penggunaan anggaran..."
-                className="w-full text-xs p-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800"
+                className="w-full text-xs p-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800"
               />
             </div>
 

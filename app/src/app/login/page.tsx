@@ -96,7 +96,7 @@ export default function LoginPage() {
             <SipandaLogo showText size="md" />
           </Link>
           <div className="flex justify-center mb-2">
-            <CarbonBadge gramsCO2={0.08} cleanerThanPercent={91} />
+            <CarbonBadge gramsCO2={0.02} cleanerThanPercent={96} />
           </div>
           <h1 className="text-base font-semibold text-zinc-900 dark:text-zinc-100">
             Masuk ke Sistem

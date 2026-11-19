@@ -8,7 +8,7 @@ interface CarbonBadgeProps {
 
 export const CarbonBadge: React.FC<CarbonBadgeProps> = ({
   gramsCO2 = 0.02,
-  cleanerThanPercent = 98,
+  cleanerThanPercent = 96,
   interactive = true,
 }) => {
   return (

@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { UserProfile, UserRole } from '@/lib/types';
 import { CarbonBadge } from '../ui/CarbonBadge';
-
 import { ThemeToggle } from '../ui/ThemeToggle';
 
 interface HeaderProps {
@@ -20,33 +19,7 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleSidebar,
 }) => {
   const router = useRouter();
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [roleMenuOpen, setRoleMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const isDark =
-      localStorage.getItem('theme') === 'dark' ||
-      (!('theme' in localStorage) &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches);
-    setIsDarkMode(isDark);
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, []);
-
-  const toggleDarkMode = () => {
-    const nextDark = !isDarkMode;
-    setIsDarkMode(nextDark);
-    if (nextDark) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  };
 
   const handleLogout = () => {
     router.push('/login');
@@ -89,7 +62,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Middle: Carbon badge */}
       <div className="hidden md:block">
-        <CarbonBadge gramsCO2={0.08} cleanerThanPercent={91} />
+        <CarbonBadge gramsCO2={0.02} cleanerThanPercent={96} />
       </div>
 
       {/* Right: Controls */}

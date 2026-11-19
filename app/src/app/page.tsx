@@ -58,7 +58,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="pt-16 pb-16 px-4 sm:px-6 max-w-4xl mx-auto flex flex-col items-center text-center">
         <div className="mb-6">
-          <CarbonBadge gramsCO2={0.08} cleanerThanPercent={91} />
+          <CarbonBadge gramsCO2={0.02} cleanerThanPercent={96} />
         </div>
 
         <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 max-w-3xl leading-[1.15]">
