@@ -27,6 +27,28 @@ export const Header: React.FC<HeaderProps> = ({
     router.push('/login');
   };
 
+  const handleRoleSelect = (r: UserRole) => {
+    onSwitchRole(r);
+    setRoleMenuOpen(false);
+
+    if (typeof window !== 'undefined') {
+      const pathname = window.location.pathname;
+      if (r === 'verifikator') {
+        if (pathname.includes('/pengajuan/baru') || pathname === '/dashboard') {
+          router.push('/dashboard/verifikasi');
+        }
+      } else if (r === 'approver') {
+        if (pathname.includes('/pengajuan/baru') || pathname.includes('/verifikasi') || pathname === '/dashboard') {
+          router.push('/dashboard/persetujuan');
+        }
+      } else if (r === 'mahasiswa') {
+        if (pathname.includes('/verifikasi') || pathname.includes('/persetujuan') || pathname.includes('/admin')) {
+          router.push('/dashboard');
+        }
+      }
+    }
+  };
+
   const roleLabels: Record<UserRole, { label: string; badge: string }> = {
     mahasiswa: { label: 'Mahasiswa / Ormawa', badge: 'bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200' },
     verifikator: { label: 'Verifikator Administrasi', badge: 'bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300' },
@@ -96,7 +118,7 @@ export const Header: React.FC<HeaderProps> = ({
               {(['mahasiswa', 'verifikator', 'approver', 'admin'] as UserRole[]).map((r) => (
                 <button
                   key={r}
-                  onClick={() => onSwitchRole(r)}
+                  onClick={() => handleRoleSelect(r)}
                   className={`w-full text-left px-2 py-1.5 rounded-md flex items-center justify-between transition-colors ${
                     currentUser.role === r
                       ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-semibold'

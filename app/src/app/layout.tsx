@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { AppStateProvider } from "@/lib/app-state";
 
 export const metadata: Metadata = {
   title: "SIPANDA | Sistem Informasi Pengajuan Dana Ramah Lingkungan",
@@ -43,7 +44,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col font-sans antialiased">{children}</body>
+      <body className="min-h-full flex flex-col font-sans antialiased">
+        <AppStateProvider>{children}</AppStateProvider>
+      </body>
     </html>
   );
 }
