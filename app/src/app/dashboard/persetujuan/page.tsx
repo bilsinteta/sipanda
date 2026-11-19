@@ -13,7 +13,7 @@ export default function PersetujuanPage() {
 
   const pendingApproval = applications.filter((app) => app.status === 'verified');
   const alreadyApproved = applications.filter(
-    (app) => app.status === 'approved' || app.status === 'completed'
+    (app) => app.status === 'approved' || app.status === 'lpj_submitted' || app.status === 'completed'
   );
 
   const totalPendingAmount = pendingApproval.reduce(

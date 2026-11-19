@@ -16,7 +16,7 @@ export default function VerifikasiPage() {
   );
 
   const pendingLpjCount = applications.filter(
-    (app) => app.status === 'approved' && app.lpj && !app.lpj.is_verified
+    (app) => (app.status === 'lpj_submitted' || app.status === 'approved') && app.lpj && !app.lpj.is_verified
   ).length;
 
   return (
@@ -111,7 +111,7 @@ export default function VerifikasiPage() {
                         {app.target_date}
                       </td>
                       <td className="py-3 px-3 whitespace-nowrap">
-                        <Badge status={app.status} />
+                        <Badge status={app.status} lpj={app.lpj} />
                       </td>
                       <td className="py-3 px-3 text-right whitespace-nowrap">
                         <Link href={`/dashboard/pengajuan/${app.id}`}>

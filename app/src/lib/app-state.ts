@@ -146,6 +146,7 @@ export function useAppState() {
       is_verified: false, // Menunggu pemeriksaan & pengesahan oleh Verifikator
     };
     updateApplication(id, {
+      status: 'lpj_submitted',
       lpj,
     });
   };
@@ -185,6 +186,7 @@ export function useAppState() {
         verification_notes: notes,
       };
       updateApplication(id, {
+        status: 'approved',
         lpj: updatedLpj,
         verifications: [
           ...(app.verifications || []),

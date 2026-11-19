@@ -37,7 +37,7 @@ export default function LpjPage() {
 
   // 2. LPJ yang sudah diunggah tapi BELUM diverifikasi tuntas oleh verifikator
   const waitingVerifyLpj = applications.filter(
-    (app) => app.status === 'approved' && app.lpj && !app.lpj.is_verified
+    (app) => (app.status === 'lpj_submitted' || app.status === 'approved') && app.lpj && !app.lpj.is_verified
   );
 
   // 3. LPJ yang sudah diverifikasi dan berstatus tuntas

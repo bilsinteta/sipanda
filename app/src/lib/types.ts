@@ -6,6 +6,7 @@ export type ApplicationStatus =
   | 'revision_needed'
   | 'verified'
   | 'approved'
+  | 'lpj_submitted'
   | 'rejected'
   | 'completed';
 

@@ -1,12 +1,13 @@
 import React from 'react';
-import { ApplicationStatus } from '@/lib/types';
+import { ApplicationStatus, AccountabilityReport } from '@/lib/types';
 
 interface BadgeProps {
   status: ApplicationStatus;
   size?: 'sm' | 'md';
+  lpj?: AccountabilityReport;
 }
 
-export const Badge: React.FC<BadgeProps> = ({ status, size = 'md' }) => {
+export const Badge: React.FC<BadgeProps> = ({ status, size = 'md', lpj }) => {
   const configs: Record<
     ApplicationStatus,
     { label: string; bg: string; text: string; dot: string; border: string }
@@ -40,11 +41,18 @@ export const Badge: React.FC<BadgeProps> = ({ status, size = 'md' }) => {
       border: 'border-teal-200/80 dark:border-teal-800/60',
     },
     approved: {
-      label: 'Disetujui',
+      label: 'Disetujui (Belum LPJ)',
       bg: 'bg-emerald-50/60 dark:bg-emerald-950/40',
       text: 'text-emerald-800 dark:text-emerald-300',
       dot: 'bg-emerald-500',
       border: 'border-emerald-200/80 dark:border-emerald-800/60',
+    },
+    lpj_submitted: {
+      label: 'Menunggu Verifikasi LPJ',
+      bg: 'bg-purple-50/70 dark:bg-purple-950/40',
+      text: 'text-purple-700 dark:text-purple-300',
+      dot: 'bg-purple-500 animate-pulse',
+      border: 'border-purple-200/80 dark:border-purple-800/60',
     },
     rejected: {
       label: 'Ditolak',
@@ -54,23 +62,41 @@ export const Badge: React.FC<BadgeProps> = ({ status, size = 'md' }) => {
       border: 'border-rose-200/80 dark:border-rose-800/60',
     },
     completed: {
-      label: 'LPJ Selesai',
+      label: 'LPJ Disahkan (Tuntas)',
       bg: 'bg-zinc-100 dark:bg-zinc-800/80',
       text: 'text-zinc-800 dark:text-zinc-200',
-      dot: 'bg-zinc-600 dark:bg-zinc-400',
+      dot: 'bg-emerald-500',
       border: 'border-zinc-300 dark:border-zinc-700',
     },
   };
 
-  const config = configs[status] || configs.draft;
+  // Resolve status presentation based on LPJ state
+  let resolvedStatus = status;
+  let customLabel: string | null = null;
+
+  if (status === 'approved' || status === 'lpj_submitted') {
+    if (lpj && !lpj.is_verified) {
+      if (lpj.verification_notes) {
+        resolvedStatus = 'revision_needed';
+        customLabel = 'Perlu Revisi LPJ';
+      } else {
+        resolvedStatus = 'lpj_submitted';
+      }
+    } else if (lpj && lpj.is_verified) {
+      resolvedStatus = 'completed';
+    }
+  }
+
+  const config = configs[resolvedStatus] || configs.draft;
   const sizeClasses = size === 'sm' ? 'px-2 py-0.5 text-[11px]' : 'px-2.5 py-0.5 text-xs';
+  const labelToDisplay = customLabel || config.label;
 
   return (
     <span
       className={`inline-flex items-center gap-1.5 font-medium rounded-md border ${config.bg} ${config.text} ${config.border} ${sizeClasses}`}
     >
       <span className={`w-1.5 h-1.5 rounded-full ${config.dot}`} />
-      {config.label}
+      {labelToDisplay}
     </span>
   );
 };

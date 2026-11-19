@@ -271,7 +271,7 @@ describe('App State & Workflow Transition Integrity', () => {
     };
     saveStoredApplications([appRecord, ...initialApps]);
 
-    // 2. Mahasiswa submits LPJ -> status MUST stay 'approved' and is_verified MUST be false
+    // 2. Mahasiswa submits LPJ -> status transitions to 'lpj_submitted' and is_verified is false
     const initialLPJ = {
       id: 'lpj-101',
       application_id: 'APP-LPJ-01',
@@ -283,12 +283,12 @@ describe('App State & Workflow Transition Integrity', () => {
       is_verified: false,
     };
     const appsWithLPJ = getStoredApplications().map((a) =>
-      a.id === 'APP-LPJ-01' ? { ...a, lpj: initialLPJ } : a
+      a.id === 'APP-LPJ-01' ? { ...a, status: 'lpj_submitted' as const, lpj: initialLPJ } : a
     );
     saveStoredApplications(appsWithLPJ);
 
     let currentApp = getStoredApplications().find((a) => a.id === 'APP-LPJ-01');
-    expect(currentApp?.status).toBe('approved');
+    expect(currentApp?.status).toBe('lpj_submitted');
     expect(currentApp?.lpj?.is_verified).toBe(false);
 
     // 3. Verifikator requests revision on LPJ (e.g. missing receipts)
@@ -297,6 +297,7 @@ describe('App State & Workflow Transition Integrity', () => {
       a.id === 'APP-LPJ-01'
         ? {
             ...a,
+            status: 'approved' as const,
             lpj: {
               ...a.lpj!,
               verification_notes: lpjRevNotes,

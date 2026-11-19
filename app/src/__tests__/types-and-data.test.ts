@@ -30,6 +30,7 @@ describe('Schema, Types, Mock Data & Client Initialization Integrity', () => {
         'verified',
         'revision_needed',
         'approved',
+        'lpj_submitted',
         'rejected',
         'completed',
       ];

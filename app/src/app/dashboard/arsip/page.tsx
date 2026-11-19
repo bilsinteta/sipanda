@@ -144,7 +144,7 @@ export default function ArsipPage() {
                       {app.activity_category}
                     </td>
                     <td className="py-3 px-3 whitespace-nowrap">
-                      <Badge status={app.status} />
+                      <Badge status={app.status} lpj={app.lpj} />
                     </td>
                     <td className="py-3 px-3 font-mono text-zinc-500 whitespace-nowrap">
                       {app.created_at.split('T')[0]}

@@ -164,7 +164,7 @@ export default function DetailPengajuanPage() {
     {
       key: 'approved',
       label: '3. Persetujuan Pimpinan',
-      done: ['approved', 'completed'].includes(app.status),
+      done: ['approved', 'lpj_submitted', 'completed'].includes(app.status),
       active: app.status === 'verified',
       error: app.status === 'rejected',
     },
@@ -172,7 +172,7 @@ export default function DetailPengajuanPage() {
       key: 'completed',
       label: '4. LPJ & Arsip Digital',
       done: app.status === 'completed',
-      active: app.status === 'approved',
+      active: ['approved', 'lpj_submitted'].includes(app.status),
     },
   ];
 
@@ -192,7 +192,7 @@ export default function DetailPengajuanPage() {
           </Link>
           <div className="flex items-center gap-2">
             <span className="text-xs text-zinc-400">Status Terkini:</span>
-            <Badge status={app.status} />
+            <Badge status={app.status} lpj={app.lpj} />
           </div>
         </div>
 
@@ -247,7 +247,7 @@ export default function DetailPengajuanPage() {
         )}
 
         {/* Banner: LPJ Menunggu Verifikasi */}
-        {app.status === 'approved' && app.lpj && !app.lpj.is_verified && (
+        {Boolean(app.lpj && !app.lpj.is_verified && (app.status === 'lpj_submitted' || app.status === 'approved')) && (
           <div className="p-4 sm:p-5 rounded-xl border border-amber-300 dark:border-amber-700/80 bg-amber-50/80 dark:bg-amber-950/30 space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-2">
@@ -285,10 +285,10 @@ export default function DetailPengajuanPage() {
             </div>
 
             <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
-              Mahasiswa telah mengunggah berkas LPJ <strong>{app.lpj.file_name}</strong>. Saat ini pihak verifikator kemahasiswaan sedang memeriksa keabsahan bukti pengeluaran dan kuitansi sebelum status usulan dituntaskan.
+              Mahasiswa telah mengunggah berkas LPJ <strong>{app.lpj?.file_name}</strong>. Saat ini pihak verifikator kemahasiswaan sedang memeriksa keabsahan bukti pengeluaran dan kuitansi sebelum status usulan dituntaskan.
             </p>
 
-            {app.lpj.verification_notes && (
+            {app.lpj?.verification_notes && (
               <div className="p-3 rounded-lg bg-white dark:bg-zinc-900 border border-amber-200 dark:border-amber-800 text-xs">
                 <span className="font-semibold text-amber-800 dark:text-amber-400">
                   Catatan Revisi LPJ Terakhir:
@@ -381,9 +381,8 @@ export default function DetailPengajuanPage() {
                 )}
 
                 {(currentUser.role === 'verifikator' || currentUser.role === 'admin') &&
-                  app.status === 'approved' &&
-                  app.lpj &&
-                  !app.lpj.is_verified && (
+                  (app.status === 'lpj_submitted' || (app.status === 'approved' && app.lpj)) &&
+                  !app.lpj?.is_verified && (
                     <Button
                       variant="primary"
                       size="sm"

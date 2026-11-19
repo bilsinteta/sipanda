@@ -20,12 +20,15 @@ export default function DashboardPage() {
   });
 
   const totalApprovedFunds = applications
-    .filter((a) => a.status === 'approved' || a.status === 'completed')
+    .filter((a) => a.status === 'approved' || a.status === 'lpj_submitted' || a.status === 'completed')
     .reduce((sum, a) => sum + Number(a.amount_requested), 0);
 
   const pendingVerificationCount = applications.filter((a) => a.status === 'submitted').length;
   const pendingApprovalCount = applications.filter((a) => a.status === 'verified').length;
   const needsRevisionCount = applications.filter((a) => a.status === 'revision_needed').length;
+  const pendingLpjVerifyCount = applications.filter(
+    (a) => a.status === 'lpj_submitted' || (a.status === 'approved' && a.lpj && !a.lpj.is_verified)
+  ).length;
   const completedLpjCount = applications.filter((a) => a.status === 'completed').length;
 
   const totalSheetsSaved = applications.reduce((sum, a) => sum + (a.estimated_paper_sheets || 20), 0);
@@ -171,7 +174,8 @@ export default function DashboardPage() {
               <option value="submitted">Diajukan ({applications.filter((a) => a.status === 'submitted').length})</option>
               <option value="verified">Terverifikasi ({applications.filter((a) => a.status === 'verified').length})</option>
               <option value="revision_needed">Perlu Revisi ({needsRevisionCount})</option>
-              <option value="approved">Disetujui ({applications.filter((a) => a.status === 'approved').length})</option>
+              <option value="approved">Disetujui (Belum LPJ) ({applications.filter((a) => a.status === 'approved' && !a.lpj).length})</option>
+              <option value="lpj_submitted">Menunggu Verifikasi LPJ ({pendingLpjVerifyCount})</option>
               <option value="completed">LPJ Selesai ({completedLpjCount})</option>
             </select>
           }
@@ -224,7 +228,7 @@ export default function DashboardPage() {
                         Rp {Number(app.amount_requested).toLocaleString('id-ID')}
                       </td>
                       <td className="py-3 px-3 whitespace-nowrap">
-                        <Badge status={app.status} />
+                        <Badge status={app.status} lpj={app.lpj} />
                       </td>
                       <td className="py-3 px-3 font-mono text-zinc-500 whitespace-nowrap">
                         {app.target_date}

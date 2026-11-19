@@ -99,9 +99,10 @@ export default function PengajuanListPage() {
                 <option value="submitted">Diajukan</option>
                 <option value="verified">Terverifikasi</option>
                 <option value="revision_needed">Perlu Revisi</option>
-                <option value="approved">Disetujui</option>
+                <option value="approved">Disetujui (Belum LPJ)</option>
+                <option value="lpj_submitted">Menunggu Verifikasi LPJ</option>
                 <option value="rejected">Ditolak</option>
-                <option value="completed">LPJ Selesai</option>
+                <option value="completed">LPJ Selesai (Tuntas)</option>
               </select>
             </div>
           </div>
@@ -163,7 +164,7 @@ export default function PengajuanListPage() {
                         Rp {Number(app.amount_requested).toLocaleString('id-ID')}
                       </td>
                       <td className="py-3 px-3 whitespace-nowrap">
-                        <Badge status={app.status} />
+                        <Badge status={app.status} lpj={app.lpj} />
                       </td>
                       <td className="py-3 px-3 font-mono text-zinc-500 whitespace-nowrap">
                         {app.estimated_paper_sheets} lembar
