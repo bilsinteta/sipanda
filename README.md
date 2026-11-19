@@ -66,10 +66,25 @@ SIPANDA mengimplementasikan prinsip-prinsip efisiensi energi dan perangkat lunak
 
 | Aktor | Peran & Hak Akses di SIPANDA |
 | :--- | :--- |
-| **Mahasiswa / Ormawa** | Mengajukan usulan pendanaan, mengunggah dokumen proposal & RAB, memantau linimasa status verifikasi, dan mengunggah LPJ kegiatan. |
-| **Verifikator Kemahasiswaan** | Memeriksa kelengkapan administrasi usulan, memberikan catatan revisi, atau meloloskan berkas ke tahap persetujuan. |
+| **Mahasiswa / Ormawa** | Mengajukan usulan pendanaan, mengunggah dokumen proposal & RAB, memantau linimasa status verifikasi, melakukan revisi perbaikan berkas, dan mengunggah LPJ kegiatan. |
+| **Verifikator Kemahasiswaan** | Memeriksa kelengkapan administrasi usulan, memberikan catatan revisi, meloloskan berkas ke tahap persetujuan, serta memvalidasi keabsahan LPJ dan bukti pengeluaran dana. |
 | **Pemberi Persetujuan (Wadek III)** | Meninjau proposal yang telah lolos verifikasi, memutuskan persetujuan pendanaan, dan menerbitkan catatan persetujuan DIPA. |
 | **Administrator Sistem** | Mengelola akun pengguna, hak akses aktor, rekapitulasi audit trail, dan data arsip digital. |
+
+---
+
+## 🔄 Siklus Status Pengajuan (8 Status Transisi)
+
+SIPANDA menerapkan *state machine* terstruktur untuk menjamin transparansi administrasi:
+
+1. `draft`: Draf konsep usulan yang sedang disiapkan mahasiswa.
+2. `submitted`: Usulan berhasil diajukan dan masuk ke antrean verifikator administrasi.
+3. `revision_needed`: Verifikator meminta perbaikan berkas proposal/RAB (mahasiswa dapat mengunggah revisi langsung).
+4. `verified`: Berkas lolos verifikasi administrasi dan diteruskan ke pimpinan fakultas.
+5. `approved`: Dana disetujui oleh Wakil Dekan III (mahasiswa dapat melaksanakan kegiatan).
+6. `lpj_submitted`: Kegiatan selesai dan mahasiswa telah mengunggah berkas LPJ (menunggu validasi verifikator).
+7. `completed`: Berkas LPJ dan bukti pengeluaran tuntas disahkan.
+8. `rejected`: Usulan tidak disetujui dengan catatan evaluasi.
 
 ---
 
