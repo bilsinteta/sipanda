@@ -15,6 +15,10 @@ export default function VerifikasiPage() {
     (app) => app.status === 'submitted' || app.status === 'revision_needed'
   );
 
+  const pendingLpjCount = applications.filter(
+    (app) => app.status === 'approved' && app.lpj && !app.lpj.is_verified
+  ).length;
+
   return (
     <DashboardLayout>
       <div className="space-y-6">
@@ -26,6 +30,28 @@ export default function VerifikasiPage() {
             Pemeriksaan kelengkapan proposal, validitas RAB, dan lembar pengesahan usulan mahasiswa
           </p>
         </div>
+
+        {/* LPJ Verification Notification Banner */}
+        {pendingLpjCount > 0 && (
+          <div className="p-3.5 rounded-xl border border-purple-200 dark:border-purple-800 bg-purple-50/60 dark:bg-purple-950/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2.5">
+              <span className="text-lg">📑</span>
+              <div>
+                <span className="font-semibold text-purple-900 dark:text-purple-200">
+                  {pendingLpjCount} Laporan Pertanggungjawaban (LPJ) Menunggu Pemeriksaan
+                </span>
+                <p className="text-purple-700/80 dark:text-purple-300/80 text-[11px] mt-0.5">
+                  Mahasiswa telah mengunggah berkas LPJ digital dan memerlukan verifikasi bukti pengeluaran.
+                </p>
+              </div>
+            </div>
+            <Link href="/dashboard/lpj">
+              <Button variant="primary" size="sm" className="bg-purple-700 hover:bg-purple-800 text-white shrink-0">
+                Buka Verifikasi LPJ ({pendingLpjCount}) →
+              </Button>
+            </Link>
+          </div>
+        )}
 
         {currentUser.role !== 'verifikator' && currentUser.role !== 'admin' && (
           <div className="p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/40 text-xs text-zinc-600 dark:text-zinc-400">

@@ -23,6 +23,7 @@ export default function DetailPengajuanPage() {
     verifyApplication,
     approveApplication,
     submitLPJ,
+    verifyLPJ,
     resubmitRevision,
   } = useAppState();
 
@@ -40,6 +41,11 @@ export default function DetailPengajuanPage() {
   const [lpjModalOpen, setLpjModalOpen] = useState(false);
   const [lpjFileName, setLpjFileName] = useState('Laporan_Pertanggungjawaban_Final.pdf');
   const [lpjNotes, setLpjNotes] = useState('');
+
+  // Modal: LPJ Verification State (Verifikator)
+  const [verifyLpjModalOpen, setVerifyLpjModalOpen] = useState(false);
+  const [verifyLpjAction, setVerifyLpjAction] = useState<'approved' | 'revision_needed'>('approved');
+  const [verifyLpjNotes, setVerifyLpjNotes] = useState('');
 
   // Modal: Revision State for Mahasiswa
   const [revisionModalOpen, setRevisionModalOpen] = useState(false);
@@ -88,6 +94,12 @@ export default function DetailPengajuanPage() {
     submitLPJ(app.id, lpjFileName, 2400000, lpjNotes);
     setLpjModalOpen(false);
     setLpjNotes('');
+  };
+
+  const handleConfirmVerifyLPJ = () => {
+    verifyLPJ(app.id, verifyLpjAction, verifyLpjNotes);
+    setVerifyLpjModalOpen(false);
+    setVerifyLpjNotes('');
   };
 
   const handleOpenRevisionModal = () => {
@@ -234,6 +246,61 @@ export default function DetailPengajuanPage() {
           </div>
         )}
 
+        {/* Banner: LPJ Menunggu Verifikasi */}
+        {app.status === 'approved' && app.lpj && !app.lpj.is_verified && (
+          <div className="p-4 sm:p-5 rounded-xl border border-amber-300 dark:border-amber-700/80 bg-amber-50/80 dark:bg-amber-950/30 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse shrink-0" />
+                <h3 className="font-semibold text-amber-900 dark:text-amber-200 text-sm">
+                  Status: Berkas LPJ Menunggu Verifikasi Administrasi
+                </h3>
+              </div>
+              <div className="flex items-center gap-2">
+                {(currentUser.role === 'verifikator' || currentUser.role === 'admin') && (
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={() => {
+                      setVerifyLpjAction('approved');
+                      setVerifyLpjNotes('');
+                      setVerifyLpjModalOpen(true);
+                    }}
+                    className="bg-amber-600 hover:bg-amber-700 text-white font-semibold shrink-0"
+                  >
+                    Periksa & Verifikasi LPJ →
+                  </Button>
+                )}
+                {currentUser.role === 'mahasiswa' && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setLpjModalOpen(true)}
+                    className="shrink-0"
+                  >
+                    Unggah Ulang LPJ
+                  </Button>
+                )}
+              </div>
+            </div>
+
+            <p className="text-xs text-amber-800 dark:text-amber-300 leading-relaxed">
+              Mahasiswa telah mengunggah berkas LPJ <strong>{app.lpj.file_name}</strong>. Saat ini pihak verifikator kemahasiswaan sedang memeriksa keabsahan bukti pengeluaran dan kuitansi sebelum status usulan dituntaskan.
+            </p>
+
+            {app.lpj.verification_notes && (
+              <div className="p-3 rounded-lg bg-white dark:bg-zinc-900 border border-amber-200 dark:border-amber-800 text-xs">
+                <span className="font-semibold text-amber-800 dark:text-amber-400">
+                  Catatan Revisi LPJ Terakhir:
+                </span>
+                <p className="text-zinc-800 dark:text-zinc-200 mt-1 italic leading-relaxed">
+                  &ldquo;{app.lpj.verification_notes}&rdquo;
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Main Header Card */}
         <Card className="p-6">
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
@@ -312,6 +379,24 @@ export default function DetailPengajuanPage() {
                     Unggah Berkas LPJ →
                   </Button>
                 )}
+
+                {(currentUser.role === 'verifikator' || currentUser.role === 'admin') &&
+                  app.status === 'approved' &&
+                  app.lpj &&
+                  !app.lpj.is_verified && (
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      onClick={() => {
+                        setVerifyLpjAction('approved');
+                        setVerifyLpjNotes('');
+                        setVerifyLpjModalOpen(true);
+                      }}
+                      className="bg-amber-600 hover:bg-amber-700 text-white"
+                    >
+                      Periksa & Verifikasi LPJ →
+                    </Button>
+                  )}
               </div>
             </div>
           </div>
@@ -391,15 +476,42 @@ export default function DetailPengajuanPage() {
                 ))}
 
                 {app.lpj && (
-                  <div className="p-3 rounded-lg border border-purple-200 dark:border-purple-800 bg-purple-50/40 dark:bg-purple-950/20 flex items-center justify-between text-xs">
+                  <div
+                    className={`p-3 rounded-lg border flex items-center justify-between text-xs ${
+                      app.lpj.is_verified
+                        ? 'border-emerald-200 dark:border-emerald-800 bg-emerald-50/40 dark:bg-emerald-950/20'
+                        : 'border-amber-200 dark:border-amber-800 bg-amber-50/40 dark:bg-amber-950/20'
+                    }`}
+                  >
                     <div className="flex items-center gap-3">
                       <span className="text-xl">📑</span>
                       <div>
-                        <div className="font-semibold text-purple-900 dark:text-purple-200">
+                        <div
+                          className={`font-semibold ${
+                            app.lpj.is_verified
+                              ? 'text-emerald-900 dark:text-emerald-200'
+                              : 'text-amber-900 dark:text-amber-200'
+                          }`}
+                        >
                           {app.lpj.file_name} (Laporan Pertanggungjawaban)
                         </div>
-                        <div className="text-[11px] text-purple-700/80 dark:text-purple-300/80">
-                          {((app.lpj.file_size || 0) / 1024).toFixed(0)} KB • Status: LPJ Terarsip
+                        <div
+                          className={`text-[11px] ${
+                            app.lpj.is_verified
+                              ? 'text-emerald-700/80 dark:text-emerald-300/80'
+                              : 'text-amber-700/80 dark:text-amber-300/80'
+                          }`}
+                        >
+                          {((app.lpj.file_size || 0) / 1024).toFixed(0)} KB • Status:{' '}
+                          {app.lpj.is_verified ? (
+                            <strong className="text-emerald-700 dark:text-emerald-400">
+                              Disahkan ({app.lpj.verified_by || 'Verifikator'})
+                            </strong>
+                          ) : (
+                            <strong className="text-amber-700 dark:text-amber-400">
+                              Menunggu Verifikasi Administrasi
+                            </strong>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -803,6 +915,89 @@ export default function DetailPengajuanPage() {
               </Button>
               <Button variant="primary" size="sm" onClick={handleConfirmRevision}>
                 Kirim Revisi ke Verifikator →
+              </Button>
+            </div>
+          </div>
+        </Modal>
+
+        {/* Modal: LPJ Verification by Verifikator */}
+        <Modal
+          isOpen={verifyLpjModalOpen}
+          onClose={() => setVerifyLpjModalOpen(false)}
+          title={`Verifikasi Laporan Pertanggungjawaban (LPJ)`}
+        >
+          <div className="space-y-4 text-xs">
+            <p className="text-zinc-600 dark:text-zinc-400">
+              Periksa keabsahan bukti pengeluaran, nota kuitansi asli, dan realisasi anggaran kegiatan{' '}
+              <strong className="text-zinc-900 dark:text-zinc-100">{app.title}</strong>.
+            </p>
+
+            {app.lpj && (
+              <div className="p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 space-y-1.5">
+                <div className="font-mono text-zinc-900 dark:text-zinc-100 font-medium">
+                  📄 {app.lpj.file_name} ({((app.lpj.file_size || 0) / 1024).toFixed(0)} KB)
+                </div>
+                {app.lpj.notes && (
+                  <p className="text-[11px] text-zinc-600 dark:text-zinc-400 italic">
+                    Catatan Pengantar Mahasiswa: &ldquo;{app.lpj.notes}&rdquo;
+                  </p>
+                )}
+              </div>
+            )}
+
+            <div>
+              <label className="block font-semibold mb-1">Keputusan Pemeriksaan LPJ:</label>
+              <div className="flex gap-3">
+                <label className="flex items-center gap-1.5 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="verLpjActionDetail"
+                    value="approved"
+                    checked={verifyLpjAction === 'approved'}
+                    onChange={() => setVerifyLpjAction('approved')}
+                  />
+                  <span className="font-semibold text-emerald-600">Sahkan & Tuntaskan LPJ</span>
+                </label>
+                <label className="flex items-center gap-1.5 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="verLpjActionDetail"
+                    value="revision_needed"
+                    checked={verifyLpjAction === 'revision_needed'}
+                    onChange={() => setVerifyLpjAction('revision_needed')}
+                  />
+                  <span className="font-semibold text-amber-600">Minta Perbaikan LPJ</span>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label className="block font-semibold mb-1">Catatan / Arahan Verifikator:</label>
+              <textarea
+                rows={3}
+                required
+                value={verifyLpjNotes}
+                onChange={(e) => setVerifyLpjNotes(e.target.value)}
+                placeholder={
+                  verifyLpjAction === 'approved'
+                    ? 'LPJ telah diperiksa dan dinyatakan sah serta lengkap...'
+                    : 'Tuliskan rincian kuitansi atau bagian berkas LPJ yang perlu diperbaiki...'
+                }
+                className="w-full text-xs p-2.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800"
+              />
+            </div>
+
+            <div className="flex justify-end gap-2 pt-2">
+              <Button variant="outline" size="sm" onClick={() => setVerifyLpjModalOpen(false)}>
+                Batal
+              </Button>
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={handleConfirmVerifyLPJ}
+                className={verifyLpjAction === 'approved' ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-amber-600 hover:bg-amber-700'}
+              >
+                {verifyLpjAction === 'approved' ? 'Sahkan & Selesaikan Usulan' : 'Kirim Catatan Revisi'}
               </Button>
             </div>
           </div>

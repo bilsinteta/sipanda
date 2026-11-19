@@ -69,6 +69,9 @@ export interface AccountabilityReport {
   file_size: number;
   submitted_at: string;
   is_verified: boolean;
+  verified_by?: string;
+  verified_at?: string;
+  verification_notes?: string;
 }
 
 export interface FundingApplication {

@@ -143,12 +143,63 @@ export function useAppState() {
       file_size,
       notes,
       submitted_at: now,
-      is_verified: true,
+      is_verified: false, // Menunggu pemeriksaan & pengesahan oleh Verifikator
     };
     updateApplication(id, {
-      status: 'completed',
       lpj,
     });
+  };
+
+  const verifyLPJ = (id: string, action: 'approved' | 'revision_needed', notes: string) => {
+    const app = applications.find((a) => a.id === id);
+    if (!app || !app.lpj) return;
+    const now = new Date().toISOString();
+    if (action === 'approved') {
+      const updatedLpj = {
+        ...app.lpj,
+        is_verified: true,
+        verified_by: currentUser.full_name,
+        verified_at: now,
+        verification_notes: notes,
+      };
+      updateApplication(id, {
+        status: 'completed',
+        lpj: updatedLpj,
+        verifications: [
+          ...(app.verifications || []),
+          {
+            id: `ver-lpj-${Date.now()}`,
+            application_id: id,
+            verifier_id: currentUser.id,
+            verifier_name: `[Verifikasi LPJ] ${currentUser.full_name}`,
+            action: 'approved',
+            notes: notes || 'Berkas LPJ dan rekapitulasi bukti pengeluaran disahkan tuntas.',
+            created_at: now,
+          },
+        ],
+      });
+    } else {
+      const updatedLpj = {
+        ...app.lpj,
+        is_verified: false,
+        verification_notes: notes,
+      };
+      updateApplication(id, {
+        lpj: updatedLpj,
+        verifications: [
+          ...(app.verifications || []),
+          {
+            id: `ver-lpj-${Date.now()}`,
+            application_id: id,
+            verifier_id: currentUser.id,
+            verifier_name: `[Revisi LPJ] ${currentUser.full_name}`,
+            action: 'revision_needed',
+            notes: notes || 'Berkas LPJ perlu perbaikan bukti pengeluaran/kuitansi.',
+            created_at: now,
+          },
+        ],
+      });
+    }
   };
 
   const resubmitRevision = (
@@ -185,6 +236,7 @@ export function useAppState() {
     verifyApplication,
     approveApplication,
     submitLPJ,
+    verifyLPJ,
     resubmitRevision,
   };
 }

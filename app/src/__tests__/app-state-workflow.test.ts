@@ -245,4 +245,136 @@ describe('App State & Workflow Transition Integrity', () => {
     expect(currentApp?.verifications.length).toBe(2);
     expect(currentApp?.verifications[1].verifier_name).toContain('[Revisi Mahasiswa]');
   });
+
+  it('supports the full LPJ verification lifecycle: Submit LPJ -> LPJ Revision -> Resubmit -> LPJ Approved & Completed', () => {
+    const initialApps = [...INITIAL_APPLICATIONS];
+    saveStoredApplications(initialApps);
+
+    // 1. Application is approved
+    const appRecord: FundingApplication = {
+      id: 'APP-LPJ-01',
+      title: 'Festival Budaya Mahasiswa FILKOM',
+      organization_name: 'BEM FILKOM',
+      activity_category: 'Seminar & Workshop',
+      amount_requested: 8000000,
+      target_date: '2026-10-10',
+      description: 'Pentas seni dan budaya mahasiswa.',
+      applicant_id: MOCK_USERS.mahasiswa.id,
+      applicant_name: MOCK_USERS.mahasiswa.full_name,
+      status: 'approved',
+      estimated_paper_sheets: 25,
+      documents: [],
+      verifications: [],
+      approvals: [],
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+    saveStoredApplications([appRecord, ...initialApps]);
+
+    // 2. Mahasiswa submits LPJ -> status MUST stay 'approved' and is_verified MUST be false
+    const initialLPJ = {
+      id: 'lpj-101',
+      application_id: 'APP-LPJ-01',
+      submitted_by: MOCK_USERS.mahasiswa.id,
+      file_name: 'LPJ_Festival_Budaya.pdf',
+      file_size: 1800000,
+      notes: 'Acara berjalan lancar, terlampir rincian pengeluaran.',
+      submitted_at: new Date().toISOString(),
+      is_verified: false,
+    };
+    const appsWithLPJ = getStoredApplications().map((a) =>
+      a.id === 'APP-LPJ-01' ? { ...a, lpj: initialLPJ } : a
+    );
+    saveStoredApplications(appsWithLPJ);
+
+    let currentApp = getStoredApplications().find((a) => a.id === 'APP-LPJ-01');
+    expect(currentApp?.status).toBe('approved');
+    expect(currentApp?.lpj?.is_verified).toBe(false);
+
+    // 3. Verifikator requests revision on LPJ (e.g. missing receipts)
+    const lpjRevNotes = 'Mohon lampirkan kuitansi sewa tenda dan rincian konsumsi pemateri.';
+    const appsWithLPJRev = getStoredApplications().map((a) =>
+      a.id === 'APP-LPJ-01'
+        ? {
+            ...a,
+            lpj: {
+              ...a.lpj!,
+              verification_notes: lpjRevNotes,
+              is_verified: false,
+            },
+            verifications: [
+              ...a.verifications,
+              {
+                id: 'ver-lpj-rev',
+                application_id: 'APP-LPJ-01',
+                verifier_id: MOCK_USERS.verifikator.id,
+                verifier_name: `[Revisi LPJ] ${MOCK_USERS.verifikator.full_name}`,
+                action: 'revision_needed' as const,
+                notes: lpjRevNotes,
+                created_at: new Date().toISOString(),
+              },
+            ],
+          }
+        : a
+    );
+    saveStoredApplications(appsWithLPJRev);
+
+    currentApp = getStoredApplications().find((a) => a.id === 'APP-LPJ-01');
+    expect(currentApp?.status).toBe('approved');
+    expect(currentApp?.lpj?.is_verified).toBe(false);
+    expect(currentApp?.lpj?.verification_notes).toContain('sewa tenda');
+    expect(currentApp?.verifications.some((v) => v.verifier_name.includes('[Revisi LPJ]'))).toBe(true);
+
+    // 4. Mahasiswa updates LPJ with revised document
+    const updatedLPJ = {
+      ...currentApp!.lpj!,
+      file_name: 'LPJ_Festival_Budaya_Revisi_Lengkap.pdf',
+      file_size: 2400000,
+      notes: 'Kuitansi sewa tenda dan rincian konsumsi telah dilengkapi.',
+    };
+    const appsWithResubmittedLPJ = getStoredApplications().map((a) =>
+      a.id === 'APP-LPJ-01' ? { ...a, lpj: updatedLPJ } : a
+    );
+    saveStoredApplications(appsWithResubmittedLPJ);
+
+    currentApp = getStoredApplications().find((a) => a.id === 'APP-LPJ-01');
+    expect(currentApp?.lpj?.file_name).toBe('LPJ_Festival_Budaya_Revisi_Lengkap.pdf');
+
+    // 5. Verifikator approves LPJ -> status becomes 'completed', is_verified becomes true
+    const approvalTime = new Date().toISOString();
+    const appsWithApprovedLPJ = getStoredApplications().map((a) =>
+      a.id === 'APP-LPJ-01'
+        ? {
+            ...a,
+            status: 'completed' as const,
+            lpj: {
+              ...a.lpj!,
+              is_verified: true,
+              verified_by: MOCK_USERS.verifikator.full_name,
+              verified_at: approvalTime,
+              verification_notes: 'LPJ dan bukti kuitansi sah tuntas 100%.',
+            },
+            verifications: [
+              ...a.verifications,
+              {
+                id: 'ver-lpj-ok',
+                application_id: 'APP-LPJ-01',
+                verifier_id: MOCK_USERS.verifikator.id,
+                verifier_name: `[Verifikasi LPJ] ${MOCK_USERS.verifikator.full_name}`,
+                action: 'approved' as const,
+                notes: 'LPJ dan bukti kuitansi sah tuntas 100%.',
+                created_at: approvalTime,
+              },
+            ],
+          }
+        : a
+    );
+    saveStoredApplications(appsWithApprovedLPJ);
+
+    currentApp = getStoredApplications().find((a) => a.id === 'APP-LPJ-01');
+    expect(currentApp?.status).toBe('completed');
+    expect(currentApp?.lpj?.is_verified).toBe(true);
+    expect(currentApp?.lpj?.verified_by).toContain('Budi Santoso');
+    expect(currentApp?.verifications.some((v) => v.verifier_name.includes('[Verifikasi LPJ]'))).toBe(true);
+  });
 });
