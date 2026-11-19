@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="8" fill="#09090b"/>
+  <!-- Minimalist stylized Panda & Leaf Emblem -->
+  <!-- Left ear -->
+  <circle cx="9.5" cy="9.5" r="3" fill="#22c55e"/>
+  <!-- Right ear -->
+  <circle cx="22.5" cy="9.5" r="3" fill="#22c55e"/>
+  <!-- Head outline -->
+  <circle cx="16" cy="18" r="9" stroke="#f4f4f5" stroke-width="2"/>
+  <!-- Left eye patch -->
+  <ellipse cx="12.5" cy="16.5" rx="2" ry="2.5" fill="#f4f4f5"/>
+  <!-- Right eye patch -->
+  <ellipse cx="19.5" cy="16.5" rx="2" ry="2.5" fill="#f4f4f5"/>
+  <!-- Green leaf accent at bottom -->
+  <path d="M16 19.5c0 2 1.5 3.5 3.5 3.5 0-2-1.5-3.5-3.5-3.5z" fill="#22c55e"/>
+</svg>

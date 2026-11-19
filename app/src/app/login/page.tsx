@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { CarbonBadge } from '@/components/ui/CarbonBadge';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { SipandaLogo } from '@/components/ui/SipandaLogo';
 import { MOCK_USERS } from '@/lib/mock-data';
 import { setStoredUser } from '@/lib/app-state';
 import { UserRole } from '@/lib/types';
@@ -91,13 +92,8 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         {/* Brand Header */}
         <div className="text-center mb-6">
-          <Link href="/" className="inline-flex items-center gap-2 mb-3">
-            <div className="w-8 h-8 rounded-md bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 flex items-center justify-center font-bold text-xs">
-              SP
-            </div>
-            <span className="font-semibold text-lg tracking-tight text-zinc-900 dark:text-zinc-100">
-              SIPANDA
-            </span>
+          <Link href="/" className="inline-flex items-center gap-2 mb-3 hover:opacity-90 transition-opacity">
+            <SipandaLogo showText size="md" />
           </Link>
           <div className="flex justify-center mb-2">
             <CarbonBadge gramsCO2={0.08} cleanerThanPercent={91} />

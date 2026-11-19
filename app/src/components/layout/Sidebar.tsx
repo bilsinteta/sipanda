@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { UserRole } from '@/lib/types';
+import { SipandaLogo } from '../ui/SipandaLogo';
 
 interface SidebarProps {
   role: UserRole;
@@ -172,18 +173,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ role, isOpen, onClose }) => {
       >
         {/* Brand Header */}
         <div className="h-14 flex items-center justify-between px-4 border-b border-zinc-200/80 dark:border-zinc-800/80">
-          <Link href="/dashboard" className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-md bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 flex items-center justify-center font-bold text-xs tracking-wider">
-              SP
-            </div>
-            <div>
-              <span className="font-semibold text-sm tracking-tight text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
-                SIPANDA
-                <span className="text-[10px] font-mono px-1 py-0.2 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
-                  UB
-                </span>
-              </span>
-            </div>
+          <Link href="/dashboard" className="hover:opacity-90 transition-opacity">
+            <SipandaLogo showText size="sm" />
           </Link>
           <button
             onClick={onClose}

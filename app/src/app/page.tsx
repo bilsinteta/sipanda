@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { CarbonBadge } from '@/components/ui/CarbonBadge';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { SipandaLogo } from '@/components/ui/SipandaLogo';
 import { EMISSION_FACTORS, DEFAULT_SIMULATION_INPUTS } from '@/lib/emission-data';
 
 export default function HomePage() {
@@ -24,19 +25,9 @@ export default function HomePage() {
       {/* Navigation */}
       <nav className="border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky top-0 z-40">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-md bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 flex items-center justify-center font-bold text-xs tracking-wider">
-              SP
-            </div>
-            <div>
-              <span className="font-semibold text-sm tracking-tight flex items-center gap-1.5">
-                SIPANDA
-                <span className="text-[10px] font-mono px-1 py-0.2 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400">
-                  FILKOM UB
-                </span>
-              </span>
-            </div>
-          </div>
+          <Link href="/" className="hover:opacity-90 transition-opacity">
+            <SipandaLogo showText size="sm" />
+          </Link>
 
           <div className="hidden md:flex items-center gap-6 text-xs text-zinc-600 dark:text-zinc-400">
             <a href="#komparasi" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Estimasi Emisi</a>
