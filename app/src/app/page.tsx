@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { CarbonBadge } from '@/components/ui/CarbonBadge';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { EMISSION_FACTORS, DEFAULT_SIMULATION_INPUTS } from '@/lib/emission-data';
 
 export default function HomePage() {
@@ -45,6 +46,7 @@ export default function HomePage() {
           </div>
 
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Link
               href="/login"
               className="text-xs font-medium px-3 py-1.5 rounded-md text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors"

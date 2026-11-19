@@ -57,3 +57,4 @@ describe('Schema, Types, Mock Data & Client Initialization Integrity', () => {
     expect(typeof client.auth.getSession).toBe('function');
   });
 });
+
