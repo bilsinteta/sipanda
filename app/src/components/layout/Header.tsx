@@ -49,7 +49,7 @@ export const Header: React.FC<HeaderProps> = ({
           </svg>
         </button>
 
-        <div className="flex items-center gap-1.5 sm:gap-2 text-xs">
+        <div className="hidden sm:flex items-center gap-1.5 sm:gap-2 text-xs">
           <Link
             href="/dashboard"
             className="text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors font-medium whitespace-nowrap"
@@ -69,15 +69,15 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Right: Controls */}
-      <div className="flex items-center gap-1.5 sm:gap-2 z-10">
+      <div className="flex items-center gap-1.5 sm:gap-2 z-10 shrink-0">
         {/* Role Selector */}
         <div className="relative">
           <button
             onClick={() => setRoleMenuOpen(!roleMenuOpen)}
-            className="flex items-center justify-between gap-1.5 min-w-[125px] sm:min-w-[145px] px-2 sm:px-2.5 py-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-xs font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
+            className="flex items-center justify-between gap-1 sm:gap-1.5 min-w-[95px] sm:min-w-[145px] px-2 sm:px-2.5 py-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-xs font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
           >
-            <span className="text-zinc-400 text-[11px]">Peran:</span>
-            <span className="font-medium text-zinc-800 dark:text-zinc-200 capitalize truncate">
+            <span className="hidden sm:inline text-zinc-400 text-[11px]">Peran:</span>
+            <span className="font-medium text-zinc-800 dark:text-zinc-200 capitalize truncate max-w-[70px] sm:max-w-none">
               {currentUser.role}
             </span>
             <svg className="w-3 h-3 text-zinc-400 shrink-0 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

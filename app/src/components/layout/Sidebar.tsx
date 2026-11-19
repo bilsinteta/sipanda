@@ -175,16 +175,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Sidebar container */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-white dark:bg-zinc-950 border-r border-zinc-200/80 dark:border-zinc-800/80 flex flex-col transition-all duration-200 ease-in-out ${
-          isMobileOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed top-0 bottom-0 left-0 z-50 bg-white dark:bg-zinc-950 border-r border-zinc-200/80 dark:border-zinc-800/80 flex flex-col transition-all duration-200 ease-in-out ${
+          isMobileOpen ? 'translate-x-0 w-64' : '-translate-x-full'
         } ${
-          isDesktopOpen ? 'lg:translate-x-0' : 'lg:-translate-x-full'
+          isDesktopOpen ? 'lg:translate-x-0 lg:w-64' : 'lg:translate-x-0 lg:w-16'
         }`}
       >
         {/* Brand Header */}
-        <div className="h-14 flex items-center justify-between px-4 border-b border-zinc-200/80 dark:border-zinc-800/80">
-          <Link href="/dashboard" className="hover:opacity-90 transition-opacity">
-            <SipandaLogo showText size="sm" />
+        <div
+          className={`h-14 flex items-center border-b border-zinc-200/80 dark:border-zinc-800/80 ${
+            isDesktopOpen ? 'justify-between px-4' : 'justify-center px-2'
+          }`}
+        >
+          <Link href="/dashboard" className="hover:opacity-90 transition-opacity flex items-center justify-center">
+            <SipandaLogo showText={isDesktopOpen} size="sm" />
           </Link>
           {/* Mobile close button */}
           <button
@@ -197,22 +201,26 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </svg>
           </button>
           {/* Desktop collapse button */}
-          <button
-            onClick={onToggleDesktop}
-            className="hidden lg:flex p-1.5 rounded-md text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
-            title="Sembunyikan Sidebar"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
-            </svg>
-          </button>
+          {isDesktopOpen && (
+            <button
+              onClick={onToggleDesktop}
+              className="hidden lg:flex p-1.5 rounded-md text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+              title="Kecilkan ke Ikon"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+              </svg>
+            </button>
+          )}
         </div>
 
         {/* Navigation list */}
-        <div className="flex-1 overflow-y-auto py-3 px-2 space-y-0.5">
-          <div className="px-2.5 pt-1 pb-1.5 text-[10px] font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-            Menu
-          </div>
+        <div className="flex-1 overflow-y-auto py-3 px-2 space-y-1">
+          {isDesktopOpen && (
+            <div className="px-2.5 pt-1 pb-1.5 text-[10px] font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+              Menu
+            </div>
+          )}
           {menuItems.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -220,19 +228,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 key={item.href}
                 href={item.href}
                 onClick={() => onCloseMobile()}
-                className={`flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                title={!isDesktopOpen ? item.label : undefined}
+                className={`flex items-center rounded-md text-xs font-medium transition-colors ${
+                  isDesktopOpen ? 'px-2.5 py-2 justify-between' : 'justify-center p-2.5'
+                } ${
                   isActive
                     ? 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-900 dark:text-zinc-100 font-semibold'
                     : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-100'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
+                <div className={`flex items-center ${isDesktopOpen ? 'gap-2.5' : 'justify-center'}`}>
                   <span className={isActive ? 'text-zinc-900 dark:text-zinc-100' : 'text-zinc-400 dark:text-zinc-500'}>
                     {item.icon}
                   </span>
-                  <span>{item.label}</span>
+                  {isDesktopOpen && <span>{item.label}</span>}
                 </div>
-                {item.badge && (
+                {isDesktopOpen && item.badge && (
                   <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60">
                     {item.badge}
                   </span>
@@ -244,10 +255,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
         {/* Minimal Footer */}
         <div className="p-3 border-t border-zinc-200/80 dark:border-zinc-800/80">
-          <div className="text-[11px] text-zinc-400 dark:text-zinc-500 flex items-center justify-between">
-            <span>FILKOM UB</span>
-            <span className="font-mono text-[10px]">GSE v1.0</span>
-          </div>
+          {isDesktopOpen ? (
+            <div className="text-[11px] text-zinc-400 dark:text-zinc-500 flex items-center justify-between">
+              <span>FILKOM UB</span>
+              <span className="font-mono text-[10px]">GSE v1.0</span>
+            </div>
+          ) : (
+            <div className="flex justify-center py-0.5" title="FILKOM UB - GSE v1.0">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            </div>
+          )}
         </div>
       </aside>
     </>

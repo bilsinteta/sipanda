@@ -79,57 +79,57 @@ export default function DashboardPage() {
         </div>
 
         {/* 4 Metric KPI Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          <Card className="p-4">
-            <div className="text-xs text-zinc-500 font-medium">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
+          <Card className="p-3 sm:p-4">
+            <div className="text-[11px] sm:text-xs text-zinc-500 font-medium">
               Dana Disetujui
             </div>
-            <div className="text-2xl font-bold font-mono text-zinc-900 dark:text-zinc-100 mt-1">
+            <div className="text-lg sm:text-2xl font-bold font-mono text-zinc-900 dark:text-zinc-100 mt-1">
               Rp {(totalApprovedFunds / 1000000).toFixed(1)} Jt
             </div>
-            <div className="text-[11px] text-zinc-400 mt-1">
-              Dari {applications.length} total usulan kegiatan
+            <div className="text-[10px] sm:text-[11px] text-zinc-400 mt-1 truncate">
+              Dari {applications.length} usulan
             </div>
           </Card>
 
-          <Card className="p-4">
-            <div className="text-xs text-zinc-500 font-medium">
+          <Card className="p-3 sm:p-4">
+            <div className="text-[11px] sm:text-xs text-zinc-500 font-medium">
               Status Berkas
             </div>
-            <div className="text-2xl font-bold font-mono text-zinc-900 dark:text-zinc-100 mt-1">
+            <div className="text-lg sm:text-2xl font-bold font-mono text-zinc-900 dark:text-zinc-100 mt-1">
               {applications.length}{' '}
               <span className="text-xs font-normal text-zinc-500">Usulan</span>
             </div>
-            <div className="text-[11px] text-zinc-400 mt-1 flex items-center gap-1.5">
-              <span className="text-amber-700 dark:text-amber-400">{pendingVerificationCount + pendingApprovalCount} proses</span>
+            <div className="text-[10px] sm:text-[11px] text-zinc-400 mt-1 flex items-center gap-1 truncate">
+              <span className="text-amber-700 dark:text-amber-400">{pendingVerificationCount + pendingApprovalCount} p</span>
               <span>·</span>
               <span className="text-emerald-700 dark:text-emerald-400">{completedLpjCount} tuntas</span>
             </div>
           </Card>
 
-          <Card className="p-4">
-            <div className="text-xs text-zinc-500 font-medium">
+          <Card className="p-3 sm:p-4">
+            <div className="text-[11px] sm:text-xs text-zinc-500 font-medium">
               Kertas Tereliminasi
             </div>
-            <div className="text-2xl font-bold font-mono text-zinc-900 dark:text-zinc-100 mt-1">
+            <div className="text-lg sm:text-2xl font-bold font-mono text-zinc-900 dark:text-zinc-100 mt-1">
               {totalSheetsSaved.toLocaleString('id-ID')}{' '}
               <span className="text-xs font-normal text-zinc-500">Lembar</span>
             </div>
-            <div className="text-[11px] text-zinc-400 mt-1">
-              ± Rp {(totalSheetsSaved * 500).toLocaleString('id-ID')} biaya terhindar
+            <div className="text-[10px] sm:text-[11px] text-zinc-400 mt-1 truncate">
+              ± Rp {(totalSheetsSaved * 500).toLocaleString('id-ID')} hemat
             </div>
           </Card>
 
-          <Card className="p-4">
-            <div className="text-xs text-zinc-500 font-medium">
-              Emisi Kertas Dicegah
+          <Card className="p-3 sm:p-4">
+            <div className="text-[11px] sm:text-xs text-zinc-500 font-medium">
+              Emisi Dicegah
             </div>
-            <div className="text-2xl font-bold font-mono text-emerald-700 dark:text-emerald-400 mt-1">
+            <div className="text-lg sm:text-2xl font-bold font-mono text-emerald-700 dark:text-emerald-400 mt-1">
               {paperEmissionPreventedKg.toFixed(2)}{' '}
               <span className="text-xs font-normal text-zinc-500">kg CO₂</span>
             </div>
-            <div className="text-[11px] text-zinc-400 mt-1">
-              Faktor 34g CO₂/lembar (Ekin & Elitok)
+            <div className="text-[10px] sm:text-[11px] text-zinc-400 mt-1 truncate">
+              Faktor 34g CO₂/lbr
             </div>
           </Card>
         </div>

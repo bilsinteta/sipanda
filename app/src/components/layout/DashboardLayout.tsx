@@ -33,7 +33,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
       />
       <div
         className={`flex flex-col flex-1 transition-all duration-200 ease-in-out ${
-          isDesktopOpen ? 'lg:pl-64' : 'lg:pl-0'
+          isDesktopOpen ? 'lg:pl-64' : 'lg:pl-16'
         }`}
       >
         <Header
@@ -42,7 +42,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
           onSwitchRole={switchRole}
           onToggleSidebar={handleToggleSidebar}
         />
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-3 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
           {children}
         </main>
       </div>
