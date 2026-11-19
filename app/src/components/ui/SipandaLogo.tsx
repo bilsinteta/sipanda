@@ -77,3 +77,4 @@ export const SipandaLogo: React.FC<SipandaLogoProps> = ({
     </div>
   );
 };
+

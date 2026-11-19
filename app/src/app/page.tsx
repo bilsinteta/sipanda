@@ -33,6 +33,7 @@ export default function HomePage() {
             <a href="#komparasi" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Estimasi Emisi</a>
             <a href="#tbl" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Dampak TBL</a>
             <a href="#prinsip" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Prinsip GSE</a>
+            <a href="#pustaka" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Rujukan Ilmiah</a>
             <a href="#tim" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Tim Peneliti</a>
           </div>
 
@@ -292,6 +293,95 @@ export default function HomePage() {
                 Menghormati preferensi komputasi rendah guna menekan siklus daya render GPU pada perangkat.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Methodological Literature & Academic Justification */}
+      <section id="pustaka" className="py-16 max-w-5xl mx-auto px-4 sm:px-6 border-t border-zinc-200/80 dark:border-zinc-800/80">
+        <div className="max-w-2xl mb-10">
+          <span className="text-xs font-mono font-medium text-emerald-700 dark:text-emerald-400 uppercase">
+            Rujukan Ilmiah & Batas Sistem
+          </span>
+          <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mt-1">
+            Transparansi Metodologi & Landasan Teori
+          </h2>
+          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 mt-1.5 leading-relaxed">
+            Seluruh angka, faktor emisi, dan rumus perhitungan dalam SIPANDA merujuk pada literatur ilmiah bereputasi dan standar audit emisi global (tanpa angka asumsi sepihak).
+          </p>
+        </div>
+
+        <div className="space-y-4 text-xs">
+          {/* Citation 1: Ekin & Elitok (2024) */}
+          <div className="p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+              <span className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">
+                1. Emisi Manufaktur Kertas Fisik (34 g CO₂ / lembar A4)
+              </span>
+              <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 w-fit border border-zinc-200 dark:border-zinc-700">
+                Scope 3 (Upstream)
+              </span>
+            </div>
+            <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed font-serif italic mb-1.5">
+              Ekin, M., &amp; Elitok, Y. (2024). &ldquo;Evaluation of Electronic Document Management System (EDMS) usage in terms of environmental sustainability.&rdquo; Global Energy Law and Sustainability, 1(2), 11–15.
+            </p>
+            <p className="text-zinc-500 text-[11px] leading-relaxed">
+              <strong>Aplikasi di SIPANDA:</strong> Digunakan untuk menghitung baseline proses konvensional. Setiap proposal (rata-rata 20 lembar A4) menghasilkan 680 gram CO₂ dari penebangan kayu, pengolahan pulp, bleaching, dan manufaktur pabrik kertas.
+            </p>
+          </div>
+
+          {/* Citation 2: Nugroho dkk. (2022) Jamali Grid */}
+          <div className="p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+              <span className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">
+                2. Intensitas Jaringan Listrik Jamali (1,06 kg CO₂e / kWh)
+              </span>
+              <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 w-fit border border-zinc-200 dark:border-zinc-700">
+                Scope 2 (Electricity)
+              </span>
+            </div>
+            <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed font-serif italic mb-1.5">
+              Nugroho, R., et al. (2022). &ldquo;Life cycle inventories and life cycle assessment for an electricity grid network: case study of the Jamali grid, Indonesia.&rdquo; International Journal of Life Cycle Assessment, 27(8), 1081–1091.
+            </p>
+            <p className="text-zinc-500 text-[11px] leading-relaxed">
+              <strong>Aplikasi di SIPANDA:</strong> Menghitung konsumsi listrik printer konvensional dan operasional server di lingkungan Universitas Brawijaya Malang yang dialiri oleh interkoneksi jaringan Jawa-Madura-Bali (faktor bauran pembangkit termal/batu bara).
+            </p>
+          </div>
+
+          {/* Citation 3: SWDM v4 */}
+          <div className="p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+              <span className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">
+                3. Model Desain Web Berkelanjutan (SWDM v4 — 0,194 kWh / GB)
+              </span>
+              <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 w-fit border border-zinc-200 dark:border-zinc-700">
+                Konsensus W3C &amp; Wholegrain
+              </span>
+            </div>
+            <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed font-serif italic mb-1.5">
+              Wholegrain Digital, The Green Web Foundation, &amp; W3C Sustainable Web Interest Group (2023/2024). &ldquo;Sustainable Web Design Model (Version 4).&rdquo;
+            </p>
+            <p className="text-zinc-500 text-[11px] leading-relaxed">
+              <strong>Aplikasi di SIPANDA:</strong> Menghitung konsumsi energi transmisi digital: Data Center (0,055 kWh/GB) + Jaringan Transmisi (0,059 kWh/GB) + Perangkat Pengguna (0,080 kWh/GB) = total 0,194 kWh/GB, dikonversi dengan faktor intensitas karbon global 494 g CO₂e/kWh.
+            </p>
+          </div>
+
+          {/* Citation 4: GHG Protocol */}
+          <div className="p-4 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+              <span className="font-semibold text-zinc-900 dark:text-zinc-100 text-sm">
+                4. Batas Sistem &amp; Transparansi Metodologi (GHG Protocol Standard)
+              </span>
+              <span className="font-mono text-[11px] px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 w-fit border border-zinc-200 dark:border-zinc-700">
+                WRI &amp; WBCSD
+              </span>
+            </div>
+            <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed font-serif italic mb-1.5">
+              World Resources Institute (WRI) &amp; World Business Council for Sustainable Development (WBCSD). &ldquo;The Greenhouse Gas Protocol: A Corporate Accounting and Reporting Standard.&rdquo;
+            </p>
+            <p className="text-zinc-500 text-[11px] leading-relaxed">
+              <strong>Aplikasi di SIPANDA:</strong> Memastikan tidak terjadi <em>false equivalence</em> (klaim bias). Emisi manufaktur kertas fisik dilaporkan dalam satuan <strong>kg CO₂</strong>, sedangkan emisi kelistrikan dilaporkan dalam <strong>kg CO₂e</strong>. Selisih 99,83% disajikan secara jujur sebagai komparasi numerik skenario administratif fakultas.
+            </p>
           </div>
         </div>
       </section>
