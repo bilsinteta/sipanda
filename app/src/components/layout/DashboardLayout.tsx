@@ -10,21 +10,37 @@ interface DashboardLayoutProps {
 }
 
 export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isDesktopOpen, setIsDesktopOpen] = useState(true);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
   const { currentUser, switchRole } = useAppState();
+
+  const handleToggleSidebar = () => {
+    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+      setIsDesktopOpen((prev) => !prev);
+    } else {
+      setIsMobileOpen((prev) => !prev);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col">
       <Sidebar
         role={currentUser.role}
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
+        isMobileOpen={isMobileOpen}
+        isDesktopOpen={isDesktopOpen}
+        onCloseMobile={() => setIsMobileOpen(false)}
+        onToggleDesktop={() => setIsDesktopOpen((prev) => !prev)}
       />
-      <div className="lg:pl-64 flex flex-col flex-1">
+      <div
+        className={`flex flex-col flex-1 transition-all duration-200 ease-in-out ${
+          isDesktopOpen ? 'lg:pl-64' : 'lg:pl-0'
+        }`}
+      >
         <Header
           currentUser={currentUser}
+          isSidebarOpen={isDesktopOpen}
           onSwitchRole={switchRole}
-          onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+          onToggleSidebar={handleToggleSidebar}
         />
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
           {children}

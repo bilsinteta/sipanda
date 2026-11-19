@@ -16,16 +16,16 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col selection:bg-zinc-900 selection:text-white dark:selection:bg-zinc-100 dark:selection:text-zinc-900">
       {/* Top Banner */}
-      <div className="border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/60 px-4 py-2 text-center text-xs text-zinc-600 dark:text-zinc-400">
+      <div className="border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/60 px-3 py-1.5 sm:py-2 text-center text-[11px] sm:text-xs text-zinc-600 dark:text-zinc-400 flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5">
         <span className="font-medium text-zinc-900 dark:text-zinc-100">Proyek Riset Green Software Engineering</span>
-        <span className="mx-2 text-zinc-300 dark:text-zinc-700">·</span>
-        <span>Fakultas Ilmu Komputer, Universitas Brawijaya</span>
+        <span className="hidden sm:inline text-zinc-300 dark:text-zinc-700">·</span>
+        <span className="text-zinc-500">FILKOM Universitas Brawijaya</span>
       </div>
 
       {/* Navigation */}
       <nav className="border-b border-zinc-200/80 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="hover:opacity-90 transition-opacity">
+        <div className="max-w-6xl mx-auto px-3 sm:px-6 h-14 flex items-center justify-between">
+          <Link href="/" className="hover:opacity-90 transition-opacity shrink-0">
             <SipandaLogo showText size="sm" />
           </Link>
 
@@ -37,17 +37,17 @@ export default function HomePage() {
             <a href="#tim" className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">Tim Peneliti</a>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <ThemeToggle />
             <Link
               href="/login"
-              className="text-xs font-medium px-3 py-1.5 rounded-md text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors"
+              className="hidden sm:inline-flex text-xs font-medium px-3 py-1.5 rounded-md text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors"
             >
               Masuk
             </Link>
             <Link
               href="/dashboard"
-              className="text-xs font-medium px-3.5 py-1.5 rounded-md bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 transition-colors"
+              className="text-xs font-medium px-2.5 sm:px-3.5 py-1.5 rounded-md bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 transition-colors whitespace-nowrap"
             >
               Buka Sistem →
             </Link>
@@ -56,30 +56,30 @@ export default function HomePage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-16 pb-16 px-4 sm:px-6 max-w-4xl mx-auto flex flex-col items-center text-center">
-        <div className="mb-6">
+      <section className="pt-10 sm:pt-16 pb-12 sm:pb-16 px-4 sm:px-6 max-w-4xl mx-auto flex flex-col items-center text-center">
+        <div className="mb-4 sm:mb-6">
           <CarbonBadge gramsCO2={0.02} cleanerThanPercent={96} />
         </div>
 
-        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 max-w-3xl leading-[1.15]">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 max-w-3xl leading-[1.2] sm:leading-[1.15]">
           Digitalisasi Pengajuan Dana Mahasiswa Bebas Kertas & Rendah Emisi
         </h1>
 
-        <p className="mt-5 text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed">
+        <p className="mt-4 sm:mt-5 text-xs sm:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed">
           Mengalihkan administrasi cetak proposal dan LPJ di Fakultas Ilmu Komputer Universitas Brawijaya ke platform digital berstandar <strong>Green Software Engineering</strong>, mengeliminasi hingga <strong>2.000 lembar kertas/tahun</strong>.
         </p>
 
         {/* Action Buttons */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 sm:gap-3 w-full sm:w-auto max-w-xs sm:max-w-none">
           <Link
             href="/dashboard/pengajuan/baru"
-            className="px-4.5 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 text-xs sm:text-sm font-medium transition-colors"
+            className="px-4 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 text-xs sm:text-sm font-medium transition-colors text-center"
           >
             Buat Usulan Baru
           </Link>
           <Link
             href="/dashboard/emisi"
-            className="px-4.5 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-medium transition-colors"
+            className="px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800/80 text-zinc-800 dark:text-zinc-200 text-xs sm:text-sm font-medium transition-colors text-center"
           >
             Simulasi Kalkulator CO₂e
           </Link>

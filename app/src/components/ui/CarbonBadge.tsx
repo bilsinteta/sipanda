@@ -12,15 +12,15 @@ export const CarbonBadge: React.FC<CarbonBadgeProps> = ({
   interactive = true,
 }) => {
   return (
-    <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700/80 text-xs text-zinc-700 dark:text-zinc-300">
-      <span className="inline-flex items-center justify-center font-mono font-bold text-[10px] px-1 py-0.2 rounded bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300/80 dark:border-emerald-800">
+    <div className="inline-flex items-center flex-wrap sm:flex-nowrap justify-center gap-1.5 sm:gap-2 px-2.5 py-1 rounded-md bg-zinc-100/90 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700/80 text-xs text-zinc-700 dark:text-zinc-300">
+      <span className="inline-flex items-center justify-center font-mono font-bold text-[10px] px-1 py-0.2 rounded bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300/80 dark:border-emerald-800 shrink-0">
         A+
       </span>
-      <span className="font-mono font-medium text-zinc-900 dark:text-zinc-100">
+      <span className="font-mono font-medium text-zinc-900 dark:text-zinc-100 whitespace-nowrap">
         {gramsCO2}g CO₂/visit
       </span>
-      <span className="text-zinc-300 dark:text-zinc-700">·</span>
-      <span className="text-zinc-500 dark:text-zinc-400 text-[11px]">
+      <span className="text-zinc-300 dark:text-zinc-700 hidden sm:inline">·</span>
+      <span className="text-zinc-500 dark:text-zinc-400 text-[11px] whitespace-nowrap">
         Lebih bersih dari {cleanerThanPercent}% web
       </span>
       {interactive && (
@@ -28,7 +28,7 @@ export const CarbonBadge: React.FC<CarbonBadgeProps> = ({
           href="https://www.websitecarbon.com/website/sipanda-filkom-vercel-app/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors ml-0.5"
+          className="text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors ml-0.5 shrink-0"
           title="Lihat sertifikasi terverifikasi di Website Carbon"
         >
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

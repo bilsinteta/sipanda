@@ -8,8 +8,10 @@ import { SipandaLogo } from '../ui/SipandaLogo';
 
 interface SidebarProps {
   role: UserRole;
-  isOpen: boolean;
-  onClose: () => void;
+  isMobileOpen: boolean;
+  isDesktopOpen: boolean;
+  onCloseMobile: () => void;
+  onToggleDesktop?: () => void;
 }
 
 interface MenuItem {
@@ -19,7 +21,13 @@ interface MenuItem {
   badge?: string;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ role, isOpen, onClose }) => {
+export const Sidebar: React.FC<SidebarProps> = ({
+  role,
+  isMobileOpen,
+  isDesktopOpen,
+  onCloseMobile,
+  onToggleDesktop,
+}) => {
   const pathname = usePathname();
 
   const getMenuItems = (): MenuItem[] => {
@@ -157,18 +165,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ role, isOpen, onClose }) => {
   return (
     <>
       {/* Mobile backdrop */}
-      {isOpen && (
+      {isMobileOpen && (
         <div
-          className="fixed inset-0 z-40 bg-zinc-950/40 backdrop-blur-xs lg:hidden"
-          onClick={onClose}
+          className="fixed inset-0 z-40 bg-zinc-950/40 backdrop-blur-xs lg:hidden transition-opacity"
+          onClick={onCloseMobile}
           aria-hidden="true"
         />
       )}
 
       {/* Sidebar container */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-white dark:bg-zinc-950 border-r border-zinc-200/80 dark:border-zinc-800/80 flex flex-col transition-transform duration-150 lg:translate-x-0 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-white dark:bg-zinc-950 border-r border-zinc-200/80 dark:border-zinc-800/80 flex flex-col transition-all duration-200 ease-in-out ${
+          isMobileOpen ? 'translate-x-0' : '-translate-x-full'
+        } ${
+          isDesktopOpen ? 'lg:translate-x-0' : 'lg:-translate-x-full'
         }`}
       >
         {/* Brand Header */}
@@ -176,12 +186,24 @@ export const Sidebar: React.FC<SidebarProps> = ({ role, isOpen, onClose }) => {
           <Link href="/dashboard" className="hover:opacity-90 transition-opacity">
             <SipandaLogo showText size="sm" />
           </Link>
+          {/* Mobile close button */}
           <button
-            onClick={onClose}
-            className="lg:hidden p-1 rounded-md text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200"
+            onClick={onCloseMobile}
+            className="lg:hidden p-1.5 rounded-md text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+            title="Tutup Menu"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          {/* Desktop collapse button */}
+          <button
+            onClick={onToggleDesktop}
+            className="hidden lg:flex p-1.5 rounded-md text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+            title="Sembunyikan Sidebar"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
             </svg>
           </button>
         </div>
@@ -197,7 +219,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ role, isOpen, onClose }) => {
               <Link
                 key={item.href}
                 href={item.href}
-                onClick={() => onClose()}
+                onClick={() => onCloseMobile()}
                 className={`flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
                   isActive
                     ? 'bg-zinc-100 dark:bg-zinc-800/80 text-zinc-900 dark:text-zinc-100 font-semibold'

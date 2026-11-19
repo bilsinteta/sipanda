@@ -9,12 +9,14 @@ import { ThemeToggle } from '../ui/ThemeToggle';
 
 interface HeaderProps {
   currentUser: UserProfile;
+  isSidebarOpen?: boolean;
   onSwitchRole: (role: UserRole) => void;
   onToggleSidebar: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   currentUser,
+  isSidebarOpen = true,
   onSwitchRole,
   onToggleSidebar,
 }) => {
@@ -33,51 +35,52 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="h-14 bg-white dark:bg-zinc-950 border-b border-zinc-200/80 dark:border-zinc-800/80 sticky top-0 z-30 flex items-center justify-between px-4 lg:px-6">
-      {/* Left: Mobile hamburger & breadcrumb */}
-      <div className="flex items-center gap-3">
+    <header className="relative h-14 bg-white dark:bg-zinc-950 border-b border-zinc-200/80 dark:border-zinc-800/80 sticky top-0 z-30 flex items-center justify-between px-3 sm:px-4 lg:px-6">
+      {/* Left: Mobile & Desktop sidebar toggle & breadcrumb */}
+      <div className="flex items-center gap-2 sm:gap-3 z-10">
         <button
           onClick={onToggleSidebar}
-          className="lg:hidden p-1.5 rounded-md text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800"
-          aria-label="Buka menu"
+          className="p-1.5 rounded-md text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+          aria-label="Buka/Tutup Sidebar"
+          title={isSidebarOpen ? "Tutup Sidebar" : "Buka Sidebar"}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
 
-        <div className="hidden sm:flex items-center gap-2 text-xs">
+        <div className="flex items-center gap-1.5 sm:gap-2 text-xs">
           <Link
             href="/dashboard"
-            className="text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors"
+            className="text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors font-medium whitespace-nowrap"
           >
             FILKOM UB
           </Link>
           <span className="text-zinc-300 dark:text-zinc-700">/</span>
-          <span className="font-medium text-zinc-800 dark:text-zinc-200">
+          <span className="font-semibold text-zinc-800 dark:text-zinc-200 whitespace-nowrap">
             SIPANDA
           </span>
         </div>
       </div>
 
-      {/* Middle: Carbon badge */}
-      <div className="hidden md:block">
+      {/* Middle: Carbon badge - Absolutely centered to guarantee ZERO horizontal shift */}
+      <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center pointer-events-auto">
         <CarbonBadge gramsCO2={0.02} cleanerThanPercent={96} />
       </div>
 
       {/* Right: Controls */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5 sm:gap-2 z-10">
         {/* Role Selector */}
         <div className="relative">
           <button
             onClick={() => setRoleMenuOpen(!roleMenuOpen)}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-xs font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
+            className="flex items-center justify-between gap-1.5 min-w-[125px] sm:min-w-[145px] px-2 sm:px-2.5 py-1 rounded-md border border-zinc-200 dark:border-zinc-800 text-xs font-medium hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
           >
             <span className="text-zinc-400 text-[11px]">Peran:</span>
-            <span className="font-medium text-zinc-800 dark:text-zinc-200 capitalize">
+            <span className="font-medium text-zinc-800 dark:text-zinc-200 capitalize truncate">
               {currentUser.role}
             </span>
-            <svg className="w-3 h-3 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-3 h-3 text-zinc-400 shrink-0 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
